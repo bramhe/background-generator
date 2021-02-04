@@ -63,8 +63,8 @@
 		<p>
 			<table>
 				<tr>
-					<th>
-						Line 1:
+					<th class="label">
+						<label for="line1">Line 1:</label>
 					</th>
 					<td>
 						<input type="text" id="line1" placeholder="e.g. firstname" tabindex="1">
@@ -85,36 +85,33 @@
 					</td>
 				</tr>
 				<tr>
-					<th>
-						Line 2:
+					<th class="label">
+						<label for="line2">Line 2:</label>
 					</th>
 					<td>
 						<input type="text" id="line2" placeholder="e.g. lastname" tabindex="2">
 					</td>
 				</tr>
 				<tr>
-					<th>
-						Line 3:
+					<th class="label">
+						<label for="line3">Line 3:</label>
 					</th>
 					<td>
 						<input type="text" id="line3" placeholder="e.g. pronouns" tabindex="3">
 					</td>
 				</tr>
-				<tr id="styleoptions">
-					<th>
-						Style:
+				<tr>
+					<th class="label">
+						<label for="fill">Background:</label>
 					</th>
 					<td>
-						<input type="radio" id="fill1" name="fillStyle" value="1" checked="checked">
-						<label for="fill1">1</label>
-						<input type="radio" id="fill2" name="fillStyle" value="2">
-						<label for="fill2">2</label>
-						<input type="radio" id="fill3" name="fillStyle" value="3">
-						<label for="fill3">3</label>
-						<input type="radio" id="fill4" name="fillStyle" value="4">
-						<label for="fill4">4</label>
-						<input type="radio" id="fill5" name="fillStyle" value="5">
-						<label for="fill5">5</label>
+						<select id="fill" class="select-css" tabindex="4">
+							<option selected="selected" value="radial">Radial Gradient</option>
+							<option value="vertical1">Vertical Gradient Light</option>
+							<option value="vertical2">Vertical Gradient Dark</option>
+							<option value="circle">Gradient with Circle</option>
+							<option value="solid">Solid Color</option>
+						</select>
 					</td>
 				</tr>
 			</table>
@@ -139,11 +136,10 @@
 	var canvas, canvashd, ctxorig, ctxhd,
 		$createhd, $createorig, $createimage, $optionHD, $option43,
 		$imgs,
-		$placeLeft, $placeRight,
 
 		$nameTxt, $line1, $line2, $line3,
 		$radialParm,
-		$fill1, $fill2, $fill3, $fill4, $fill5;
+		$fill;
 
 
 
@@ -152,30 +148,19 @@
 		canvas = document.getElementById('cvs');
 		canvashd = document.getElementById('cvshd');
 
-
 		ctxorig = canvas.getContext('2d');
 		ctxhd = canvashd.getContext('2d');
-
 
 		$createimage = document.getElementById('createimage');
 		$optionHD = document.getElementById('optionHD');
 		$option43 = document.getElementById('option43');
-		$fill1 = document.getElementById('fill1');
-		$fill2 = document.getElementById('fill2');
-		$fill3 = document.getElementById('fill3');
-		$fill4 = document.getElementById('fill4');
-		$fill5 = document.getElementById('fill5');
-
+		$fill = document.getElementById('fill');
 
 		$imgs = document.getElementById('imgs');
 
 		$line1 = document.getElementById('line1');
 		$line2 = document.getElementById('line2');
 		$line3 = document.getElementById('line3');
-
-		//$placeLeft = document.getElementById('placeLeft');
-		//$placeRight = document.getElementById('placeRight');
-
 
 		var queryString = window.location.search;
 		var urlParams = new URLSearchParams(queryString);
@@ -262,69 +247,63 @@
 			updateImage();
 		}
 
-		$option43.oninput = function (e) {
+		$option43.oninput = function(e) {
 			updateImage();
 		}
-		$optionHD.oninput = function (e) {
+		$optionHD.oninput = function(e) {
 			updateImage();
 		}
-		$fill1.oninput = function (e) {
-			updateImage();
-		}
-		$fill2.oninput = function (e) {
-			updateImage();
-		}
-		$fill3.oninput = function (e) {
-			updateImage();
-		}
-		$fill4.oninput = function (e) {
-			updateImage();
-		}
-		$fill5.oninput = function (e) {
+		$fill.oninput = function(e) {
 			updateImage();
 		}
 
 	}
 
 
-	function requestedFillStyle(ctx, w, h) {
+	function fillBackground(ctx, w, h) {
 
-		if ($fill1.checked) {
+		if ($fill.value == 'radial') {
 
 			var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
 			radialGrd.addColorStop(0, default_gradient_color_main);
 			radialGrd.addColorStop(1, default_gradient_color_dark);
 
-			return radialGrd;
+			ctx.fillStyle = radialGrd;
+			ctx.fillRect(0, 0, w, h);
 
-		} else if ($fill2.checked) {
+		} else if ($fill.value == 'vertical1') {
 
-			var grd = ctx.createLinearGradient(0,0,0,h);
+			var grd = ctx.createLinearGradient(0, 0, 0, h);
 			grd.addColorStop(0, default_gradient_color_dark);
-			grd.addColorStop(0.75, default_gradient_color_main);
+			grd.addColorStop(0.5, default_gradient_color_main);
 
-			return grd;
+			ctx.fillStyle = grd;
+			ctx.fillRect(0, 0, w, h);
 
-		} else if ($fill3.checked) {
+		} else if ($fill.value == 'circle') {
 
 			var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
 			radialGrd.addColorStop(0.75, default_gradient_color_dark);
 			radialGrd.addColorStop(0.75, default_gradient_color_main);
 			radialGrd.addColorStop(1, default_gradient_color_dark);
 
-			return radialGrd;
+			ctx.fillStyle = radialGrd;
+			ctx.fillRect(0, 0, w, h);
 
-		} else if ($fill4.checked) {
+		} else if ($fill.value == 'vertical2') {
 
-			var grd = ctx.createLinearGradient(0,0,0,h);
+			var grd = ctx.createLinearGradient(0, 0, 0, h);
 			grd.addColorStop(0, default_gradient_color_dark);
-			grd.addColorStop(0.8, default_gradient_color_main);
+			grd.addColorStop(0.9, default_gradient_color_main);
 
-			return grd;
+			ctx.fillStyle = grd;
+			ctx.fillRect(0, 0, w, h);
 
-		}
-		else {
-			return default_gradient_color_main;
+		} else if ($fill.value == 'solid') {
+
+			// solid color
+			ctx.fillStyle = default_gradient_color_main;
+			ctx.fillRect(0, 0, w, h);
 		}
 
 	}
@@ -336,8 +315,7 @@
 		var default_font_line2 = default_font_weight_line2 + ' ' + default_font_size_line2 + ' ' + default_font_family;
 		var default_font_line3 = default_font_weight_line3 + ' ' + default_font_size_line3 + ' ' + default_font_family;
 
-		ctx.fillStyle = requestedFillStyle(ctx, w, h);
-		ctx.fillRect(0, 0, w, h);
+		fillBackground(ctx, w, h);
 
 		ctx.font = default_font_line1;
 		var line1Measurement = ctx.measureText($line1.value).width;
