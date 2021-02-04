@@ -106,9 +106,11 @@
 					</th>
 					<td>
 						<select id="align" class="select-css" tabindex="4">
-							<option selected="selected" value="right">Right</option>
+							<option selected="selected" value="right_left">Text on Right, Left Aligned</option>
+							<option value="right_right">Text on Right, Right Aligned</option>
 							<option value="center">Center</option>
-							<option value="left">Left</option>
+							<option value="left_left">Text on Left, Left Aligned</option>
+							<option value="left_right">Text on Left, Right Aligned</option>
 						</select>
 					</td>
 				</tr>
@@ -342,7 +344,7 @@
 		var maxWidth = Math.max(line1Measurement, line2Measurement, line3Measurement);
 		maxWidth = Math.min(maxWidth, w * 0.85);
 
-		if ($align.value == 'right') {
+		if ($align.value == 'right_left') {
 
 			ctx.textAlign = "start";
 
@@ -365,7 +367,30 @@
 			if ($line3.value) {
 				ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
 			}
+		}
+		else if ($align.value == 'right_right') {
 
+			ctx.textAlign = "end";
+
+			ctx.fillStyle = default_font_color_line1;
+			ctx.font = default_font_line1;
+			ctx.fillText($line1.value, w - side_margin, base_line1, maxWidth);
+
+			ctx.fillStyle = default_font_color_line2;
+			ctx.font = default_font_line2;
+			ctx.fillText($line2.value, w - side_margin, base_line2, maxWidth);
+
+			ctx.fillStyle = default_font_color_line3;
+			ctx.font = default_font_line3;
+			ctx.fillText($line3.value, w - side_margin, base_line3, maxWidth);
+
+			// vertical line next to text
+			ctx.fillStyle = vertical_line_color;
+			ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line2 + vertical_line_extra_height);
+
+			if ($line3.value) {
+				ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
+			}
 		}
 		else if ($align.value == 'center') {
 
@@ -386,7 +411,31 @@
 			// no vertical line with centered text
 
 		}
-		else if ($align.value == 'left') {
+		else if ($align.value == 'left_right') {
+
+			ctx.textAlign = "end";
+
+			ctx.fillStyle = default_font_color_line1;
+			ctx.font = default_font_line1;
+			ctx.fillText($line1.value, maxWidth + side_margin, base_line1, maxWidth);
+
+			ctx.fillStyle = default_font_color_line2;
+			ctx.font = default_font_line2;
+			ctx.fillText($line2.value, maxWidth + side_margin, base_line2, maxWidth);
+
+			ctx.fillStyle = default_font_color_line3;
+			ctx.font = default_font_line3;
+			ctx.fillText($line3.value, maxWidth + side_margin, base_line3, maxWidth);
+
+			// vertical line next to text
+			ctx.fillStyle = vertical_line_color;
+			ctx.fillRect(maxWidth + vertical_line_margin, top_margin, vertical_line_width, base_line2 + vertical_line_extra_height);
+
+			if ($line3.value) {
+				ctx.fillRect(maxWidth + vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
+			}
+		}
+		else if ($align.value == 'left_left') {
 
 			ctx.textAlign = "start";
 
