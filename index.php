@@ -102,10 +102,22 @@
 				</tr>
 				<tr>
 					<th class="label">
+						<label for="align">Align:</label>
+					</th>
+					<td>
+						<select id="align" class="select-css" tabindex="4">
+							<option selected="selected" value="right">Right</option>
+							<option value="center">Center</option>
+							<option value="left">Left</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th class="label">
 						<label for="fill">Background:</label>
 					</th>
 					<td>
-						<select id="fill" class="select-css" tabindex="4">
+						<select id="fill" class="select-css" tabindex="5">
 							<option selected="selected" value="radial">Radial Gradient</option>
 							<option value="vertical1">Vertical Gradient Light</option>
 							<option value="vertical2">Vertical Gradient Dark</option>
@@ -136,10 +148,8 @@
 	var canvas, canvashd, ctxorig, ctxhd,
 		$createhd, $createorig, $createimage, $optionHD, $option43,
 		$imgs,
-
-		$nameTxt, $line1, $line2, $line3,
-		$radialParm,
-		$fill;
+		$line1, $line2, $line3,
+		$fill, $align;
 
 
 
@@ -154,6 +164,7 @@
 		$createimage = document.getElementById('createimage');
 		$optionHD = document.getElementById('optionHD');
 		$option43 = document.getElementById('option43');
+		$align = document.getElementById('align');
 		$fill = document.getElementById('fill');
 
 		$imgs = document.getElementById('imgs');
@@ -166,7 +177,6 @@
 		var urlParams = new URLSearchParams(queryString);
 		var firstVal = urlParams.get('first');
 		var lastVal = urlParams.get('last');
-		$radialParm = urlParams.get('r');
 
 		if (firstVal) {
 			$line1.value = firstVal;
@@ -256,6 +266,9 @@
 		$fill.oninput = function(e) {
 			updateImage();
 		}
+		$align.oninput = function(e) {
+			updateImage();
+		}
 
 	}
 
@@ -329,26 +342,73 @@
 		var maxWidth = Math.max(line1Measurement, line2Measurement, line3Measurement);
 		maxWidth = Math.min(maxWidth, w * 0.85);
 
-		ctx.textAlign = "start";
+		if ($align.value == 'right') {
 
-		ctx.fillStyle = default_font_color_line1;
-		ctx.font = default_font_line1;
-		ctx.fillText($line1.value, w - maxWidth - side_margin, base_line1, maxWidth);
+			ctx.textAlign = "start";
 
-		ctx.fillStyle = default_font_color_line2;
-		ctx.font = default_font_line2;
-		ctx.fillText($line2.value, w - maxWidth - side_margin, base_line2, maxWidth);
+			ctx.fillStyle = default_font_color_line1;
+			ctx.font = default_font_line1;
+			ctx.fillText($line1.value, w - maxWidth - side_margin, base_line1, maxWidth);
 
-		ctx.fillStyle = default_font_color_line3;
-		ctx.font = default_font_line3;
-		ctx.fillText($line3.value, w - maxWidth - side_margin, base_line3, maxWidth);
+			ctx.fillStyle = default_font_color_line2;
+			ctx.font = default_font_line2;
+			ctx.fillText($line2.value, w - maxWidth - side_margin, base_line2, maxWidth);
 
-		// vertical line next to text
-		ctx.fillStyle = vertical_line_color;
-		ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line2 + vertical_line_extra_height);
+			ctx.fillStyle = default_font_color_line3;
+			ctx.font = default_font_line3;
+			ctx.fillText($line3.value, w - maxWidth - side_margin, base_line3, maxWidth);
 
-		if ($line3.value) {
-			ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
+			// vertical line next to text
+			ctx.fillStyle = vertical_line_color;
+			ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line2 + vertical_line_extra_height);
+
+			if ($line3.value) {
+				ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
+			}
+
+		}
+		else if ($align.value == 'center') {
+
+			ctx.textAlign = "center";
+
+			ctx.fillStyle = default_font_color_line1;
+			ctx.font = default_font_line1;
+			ctx.fillText($line1.value, w / 2, base_line1);
+
+			ctx.fillStyle = default_font_color_line2;
+			ctx.font = default_font_line2;
+			ctx.fillText($line2.value, w / 2, base_line2);
+
+			ctx.fillStyle = default_font_color_line3;
+			ctx.font = default_font_line3;
+			ctx.fillText($line3.value, w / 2, base_line3);
+
+			// no vertical line with centered text
+
+		}
+		else if ($align.value == 'left') {
+
+			ctx.textAlign = "start";
+
+			ctx.fillStyle = default_font_color_line1;
+			ctx.font = default_font_line1;
+			ctx.fillText($line1.value, side_margin, base_line1, maxWidth);
+
+			ctx.fillStyle = default_font_color_line2;
+			ctx.font = default_font_line2;
+			ctx.fillText($line2.value, side_margin, base_line2, maxWidth);
+
+			ctx.fillStyle = default_font_color_line3;
+			ctx.font = default_font_line3;
+			ctx.fillText($line3.value, side_margin, base_line3, maxWidth);
+
+			// vertical line next to text
+			ctx.fillStyle = vertical_line_color;
+			ctx.fillRect(maxWidth + vertical_line_margin, top_margin, vertical_line_width, base_line2 + vertical_line_extra_height);
+
+			if ($line3.value) {
+				ctx.fillRect(maxWidth + vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
+			}
 		}
 	}
 
