@@ -1,18 +1,36 @@
 <!doctype html>
 <html>
 <head>
-	<title>NCSU Zoom Virtual Background Generator</title>
+	<title>NC State Zoom Virtual Background Generator</title>
 	<meta charset="utf-8" />
 	<script src="canvas2image.js"></script>
 	<script src="https://use.typekit.net/dhg1qiw.js" type="text/javascript"></script>
 	<script type="text/javascript">/*<![CDATA[*/try{Typekit.load({ async: false });}catch(e){}/*]]>*/</script>
+	<link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts/include.css">
 	<link rel="stylesheet" href="styles.css">
+<script>
+
+	var default_font_weight = '700';
+	var default_font_weight_smallest = '400';
+
+	var default_font_size = '150px';
+	var default_font_size_small = '100px';
+	var default_font_size_smallest = '80px';
+
+	var default_font_family = 'UniversRoman,Arial';
+
+	var default_gradient_color_base = '#2F65A7';
+	var default_gradient_dark_color = '#00274C';
+
+	var vertical_line_color = '#CC0000';
+
+</script>
 </head>
 <body>
 
 
 <div class="doc">
-	<h1>NCSU Zoom Virtual Background Generator</h1>
+	<h1>NC State Zoom Virtual Background Generator</h1>
 
 	<canvas width="1920" height="1080" id="cvshd"></canvas>
 	<canvas width="1600" height="1200" id="cvs"></canvas>
@@ -23,10 +41,7 @@
 	</p>
 	<p>
 		Note: If your name appears backwards to you, don't worry! It displays correctly to others.
-		If you want your name to read correctly to you, uncheck “Mirror my video” in your Zoom video settings.
-	</p>
-	<p>
-		Options: Add a phonetic pronunciation, an area affiliation, and preferred pronouns.
+		If you want your name to read correctly to you, uncheck &ldquo;Mirror my video&rdquo; in your Zoom video settings.
 	</p>
 
 	<div>
@@ -34,10 +49,10 @@
 			<table>
 				<tr>
 					<th>
-						First Name:
+						Line 1:
 					</th>
 					<td>
-						<input type="text" id="first" placeholder="firstname" tabindex="1">
+						<input type="text" id="line1" placeholder="e.g. firstname" tabindex="1">
 					</td>
 					<td rowspan="2" align="center" >
 						<button id="createimage" tabindex="4">Save Image</button>
@@ -56,19 +71,18 @@
 				</tr>
 				<tr>
 					<th>
-						Last Name:
+						Line 2:
 					</th>
 					<td>
-						<input type="text" id="last" placeholder="lastname" tabindex="2">
+						<input type="text" id="line2" placeholder="e.g. lastname" tabindex="2">
 					</td>
 				</tr>
 				<tr>
 					<th>
-						 Preferred Pronouns:<br/>
-						 (optional)
+						Line 3:
 					</th>
 					<td>
-						<input type="text" id="pronoun" placeholder="pronouns" tabindex="3">
+						<input type="text" id="line3" placeholder="e.g. pronouns" tabindex="3">
 					</td>
 				</tr>
 				<tr id="styleoptions">
@@ -97,7 +111,7 @@
 	</div>
 	<div id="explanation" style="display:none">
 		<p>
-			After you are happy with your new virtual background use the "Save" button to save it to your local machine.
+			After you are happy with your new virtual background use the &ldquo;Save Image&rdquo; button to save it to your local machine.
 			Set it as your virtual background in your Zoom settings.
 			(<a href="howto.html">How do I set a virtual background in Zoom?</a>)
 		</p>
@@ -112,7 +126,7 @@
 		$imgs,
 		$placeLeft, $placeRight,
 
-		$nameTxt, $first, $last, $pronoun,
+		$nameTxt, $line1, $line2, $line3,
 		$radialParm,
 		$fill1, $fill2, $fill3, $fill4, $fill5;
 
@@ -140,9 +154,9 @@
 
 		$imgs = document.getElementById('imgs');
 
-		$first = document.getElementById('first');
-		$last = document.getElementById('last');
-		$pronoun = document.getElementById('pronoun');
+		$line1 = document.getElementById('line1');
+		$line2 = document.getElementById('line2');
+		$line3 = document.getElementById('line3');
 
 		//$placeLeft = document.getElementById('placeLeft');
 		//$placeRight = document.getElementById('placeRight');
@@ -155,11 +169,11 @@
 		$radialParm = urlParams.get('r');
 
 		if (firstVal) {
-			$first.value = firstVal
+			$line1.value = firstVal;
 		};
 
 		if (lastVal) {
-			$last.value = lastVal
+			$line2.value = lastVal;
 		};
 
 		bind();
@@ -223,13 +237,13 @@
 
 		}
 
-		$last.oninput = function (e) {
+		$line1.oninput = function(e) {
 			updateImage();
 		}
-		$first.oninput = function (e) {
+		$line2.oninput = function(e) {
 			updateImage();
 		}
-		$pronoun.oninput = function (e) {
+		$line3.oninput = function(e) {
 			updateImage();
 		}
 
@@ -263,44 +277,57 @@
 		if ($fill1.checked) {
 
 			var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
-			radialGrd.addColorStop(0, "#2F65A7");
-			radialGrd.addColorStop(1, "#00274C");
+			radialGrd.addColorStop(0, default_gradient_color_base);
+			radialGrd.addColorStop(1, default_gradient_dark_color);
 
 			return radialGrd;
 
 		} else if ($fill2.checked) {
 
 			var grd = ctx.createLinearGradient(0,0,0,h);
-			grd.addColorStop(0,"#00274C");
-			grd.addColorStop(0.75,"#2F65A7");
+			grd.addColorStop(0, default_gradient_dark_color);
+			grd.addColorStop(0.75, default_gradient_color_base);
 
 			return grd;
 
 		} else if ($fill3.checked) {
 
 			var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
-			radialGrd.addColorStop(0.75, "#00274C");
-			radialGrd.addColorStop(0.75, "#2F65A7");
-			radialGrd.addColorStop(1, "#00274C");
+			radialGrd.addColorStop(0.75, default_gradient_dark_color);
+			radialGrd.addColorStop(0.75, default_gradient_color_base);
+			radialGrd.addColorStop(1, default_gradient_dark_color);
 
 			return radialGrd;
 
 		} else if ($fill4.checked) {
 
 			var grd = ctx.createLinearGradient(0,0,0,h);
-			grd.addColorStop(0,"#00274C");
-			grd.addColorStop(0.8,"#2F65A7");
+			grd.addColorStop(0, default_gradient_dark_color);
+			grd.addColorStop(0.8, default_gradient_color_base);
 
 			return grd;
 
-		} else {
-			return  '#2F65A7'; // uva blue
+		}
+		else {
+			return default_gradient_color_base;
 		}
 
 	}
 
 
 	function draw(ctx, w, h) {
+
+		var rightMargin = 50;
+		var topMargin = 50;
+		var verticalLineWidth = 8;
+
+		var line1Base = 160;
+		var line2Base = 280;
+		var line3Base = 390;
+
+		var default_font = default_font_weight + ' ' + default_font_size + ' ' + default_font_family;
+		var default_font_small = default_font_weight + ' ' + default_font_size_small + ' ' + default_font_family;
+		var default_font_smallest = default_font_weight_smallest + ' ' + default_font_size_smallest + ' ' + default_font_family;
 
 		ctx.fillStyle = requestedFillStyle(ctx, w, h);
 		ctx.fillRect(0,0,w,h);
@@ -311,45 +338,33 @@
 			ctx.fillStyle = '#ffffff';
 		}
 
-		ctx.font = "bold 150px franklin-gothic-urw,Arial";
+		// measure lines
 
-		var rightMargin = 50;
-		var topMargin = 50;
-		var verticalLineWidth = 8;
+		ctx.font = default_font;
+		var line1Measurement = ctx.measureText($line1.value).width;
 
-		var firstMeasurement = ctx.measureText($first.value).width;
+		ctx.font = default_font_small;
+		var lastMeasurement = ctx.measureText($line2.value).width;
 
-		// last name will be smaller
-		ctx.font = "bold 100px franklin-gothic-urw,Arial";
+		var maxWidth = Math.max(line1Measurement, lastMeasurement);
 
-		var lastMeasurement = ctx.measureText($last.value).width;
-		var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+		// limit max width of lines to a percentage width of the canvas
+		maxWidth = Math.min(maxWidth, w * 0.36);
 
-		var firstLineBase = 160;
-		var secondLineBase = 280;
-		var thirdLineBase = 400;
+		ctx.font = default_font;
+		ctx.fillText($line1.value, w - maxWidth - rightMargin, line1Base, maxWidth);
 
-		//maxWidth = w*.36;
-		if (maxWidth > (w*.36)) {
-			maxWidth = w*.36;
-		}
+		ctx.font = default_font_small;
+		ctx.fillText($line2.value, w - maxWidth - rightMargin, line2Base, maxWidth);
 
-		ctx.font = "bold 150px franklin-gothic-urw,Arial";
+		ctx.font = default_font_smallest;
+		ctx.fillText($line3.value, w - maxWidth - rightMargin, line3Base, maxWidth);
 
-		ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+		ctx.fillStyle = vertical_line_color;
+		ctx.fillRect(w - maxWidth - 80, topMargin, verticalLineWidth, line2Base - 30);
 
-		ctx.font = "bold 100px franklin-gothic-urw,Arial";
-		ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
-
-		ctx.font = "normal 80px franklin-gothic-urw,Arial";
-
-		ctx.fillText($pronoun.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
-
-		ctx.fillStyle = '#FFCB05'; //uva maize
-		ctx.fillRect(w - maxWidth - 80, topMargin, verticalLineWidth, secondLineBase - 30);
-
-		if ($pronoun.value) {
-			ctx.fillRect(w - maxWidth - 80, topMargin, verticalLineWidth, thirdLineBase - 30);
+		if ($line3.value) {
+			ctx.fillRect(w - maxWidth - 80, topMargin, verticalLineWidth, line3Base - 30);
 		}
 	}
 
