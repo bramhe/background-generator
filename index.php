@@ -1,13 +1,14 @@
 <!doctype html>
 <html>
 <head>
-	<title>NC State Zoom Virtual Background Generator</title>
-	<meta charset="utf-8" />
-	<script src="canvas2image.js"></script>
-	<script src="https://use.typekit.net/dhg1qiw.js" type="text/javascript"></script>
-	<script type="text/javascript">/*<![CDATA[*/try{Typekit.load({ async: false });}catch(e){}/*]]>*/</script>
-	<link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts/include.css">
-	<link rel="stylesheet" href="styles.css">
+<title>NC State Zoom Virtual Background Generator</title>
+<meta charset="utf-8" />
+<script src="canvas2image.js"></script>
+<script src="https://use.typekit.net/dhg1qiw.js" type="text/javascript"></script>
+<script type="text/javascript">/*<![CDATA[*/try{Typekit.load({ async: false });}catch(e){}/*]]>*/</script>
+<link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts/include.css">
+<script src="https://cdn.ncsu.edu/brand-assets/utility-bar/ub.php?googleCustomSearchCode=&placeholder=&maxWidth=1100&color=gray&showBrick=1"></script>
+<link rel="stylesheet" href="styles.css">
 <script>
 
 	var default_font_family = 'UniversRoman,Arial';		// text font family
@@ -42,6 +43,7 @@
 </script>
 </head>
 <body>
+<div id="ncstate-utility-bar"></div>
 
 
 <div class="doc">
@@ -70,7 +72,7 @@
 						<input type="text" id="line1" placeholder="e.g. firstname" tabindex="1">
 					</td>
 					<td rowspan="2" align="center" >
-						<button id="createimage" tabindex="4">Save Image</button>
+						<button id="createimage" tabindex="6">Download Image</button>
 
 						<div id="ratioOptions">
 							<input type="radio" id="optionHD" name="imageStyle" value="HD" checked="checked">
@@ -135,7 +137,7 @@
 	</div>
 	<div id="explanation" style="display:none">
 		<p>
-			After you are happy with your new virtual background use the &ldquo;Save Image&rdquo; button to save it to your local machine.
+			After you are happy with your new virtual background use the &ldquo;Download Image&rdquo; button to save it to your local machine.
 			Set it as your virtual background in your Zoom settings.
 			(<a href="howto.html">How do I set a virtual background in Zoom?</a>)
 		</p>
