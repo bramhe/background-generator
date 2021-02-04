@@ -4,8 +4,6 @@
 <title>NC State Zoom Virtual Background Generator</title>
 <meta charset="utf-8" />
 <script src="canvas2image.js"></script>
-<script src="https://use.typekit.net/dhg1qiw.js" type="text/javascript"></script>
-<script type="text/javascript">/*<![CDATA[*/try{Typekit.load({ async: false });}catch(e){}/*]]>*/</script>
 <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts/include.css">
 <script src="https://cdn.ncsu.edu/brand-assets/utility-bar/ub.php?googleCustomSearchCode=&placeholder=&maxWidth=1100&color=gray&showBrick=1"></script>
 <link rel="stylesheet" href="styles.css">
