@@ -10,19 +10,34 @@
 	<link rel="stylesheet" href="styles.css">
 <script>
 
-	var default_font_weight = '700';
-	var default_font_weight_smallest = '400';
+	var default_font_family = 'UniversRoman,Arial';		// text font family
 
-	var default_font_size = '150px';
-	var default_font_size_small = '100px';
-	var default_font_size_smallest = '80px';
+	var default_font_weight_line1 = '700';				// line 1 font weight
+	var default_font_weight_line2 = '700';				// line 2 font weight
+	var default_font_weight_line3 = '400';				// line 3 font weight
 
-	var default_font_family = 'UniversRoman,Arial';
+	var default_font_size_line1 = '150px';				// line 1 font size
+	var default_font_size_line2 = '100px';				// line 2 font size
+	var default_font_size_line3 = '80px';				// line 3 font size
 
-	var default_gradient_color_base = '#2F65A7';
-	var default_gradient_dark_color = '#00274C';
+	var default_font_color_line1 = '#FFFFFF';			// line 1 text color
+	var default_font_color_line2 = '#FFFFFF';			// line 2 text color
+	var default_font_color_line3 = '#FFFFFF';			// line 3 text color
 
-	var vertical_line_color = '#CC0000';
+	var base_line1 = 160;								// line 1 baseline
+	var base_line2 = 280;								// line 2 baseline
+	var base_line3 = 390;								// line 3 baseline
+
+	var side_margin = 50;								// text margin from top
+	var top_margin = 50;								// text margin from side
+
+	var default_gradient_color_main = '#427E93';		// gradient main color
+	var default_gradient_color_dark = '#000000';		// gradient darker color
+
+	var vertical_line_width = 8;						// width of vertical bar
+	var vertical_line_color = '#CC0000';				// color of vertical bar
+	var vertical_line_margin = 100;						// vertical bar margin away from text
+	var vertical_line_extra_height = -30;				// vertical bar height added to last line base
 
 </script>
 </head>
@@ -277,39 +292,39 @@
 		if ($fill1.checked) {
 
 			var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
-			radialGrd.addColorStop(0, default_gradient_color_base);
-			radialGrd.addColorStop(1, default_gradient_dark_color);
+			radialGrd.addColorStop(0, default_gradient_color_main);
+			radialGrd.addColorStop(1, default_gradient_color_dark);
 
 			return radialGrd;
 
 		} else if ($fill2.checked) {
 
 			var grd = ctx.createLinearGradient(0,0,0,h);
-			grd.addColorStop(0, default_gradient_dark_color);
-			grd.addColorStop(0.75, default_gradient_color_base);
+			grd.addColorStop(0, default_gradient_color_dark);
+			grd.addColorStop(0.75, default_gradient_color_main);
 
 			return grd;
 
 		} else if ($fill3.checked) {
 
 			var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
-			radialGrd.addColorStop(0.75, default_gradient_dark_color);
-			radialGrd.addColorStop(0.75, default_gradient_color_base);
-			radialGrd.addColorStop(1, default_gradient_dark_color);
+			radialGrd.addColorStop(0.75, default_gradient_color_dark);
+			radialGrd.addColorStop(0.75, default_gradient_color_main);
+			radialGrd.addColorStop(1, default_gradient_color_dark);
 
 			return radialGrd;
 
 		} else if ($fill4.checked) {
 
 			var grd = ctx.createLinearGradient(0,0,0,h);
-			grd.addColorStop(0, default_gradient_dark_color);
-			grd.addColorStop(0.8, default_gradient_color_base);
+			grd.addColorStop(0, default_gradient_color_dark);
+			grd.addColorStop(0.8, default_gradient_color_main);
 
 			return grd;
 
 		}
 		else {
-			return default_gradient_color_base;
+			return default_gradient_color_main;
 		}
 
 	}
@@ -317,54 +332,45 @@
 
 	function draw(ctx, w, h) {
 
-		var rightMargin = 50;
-		var topMargin = 50;
-		var verticalLineWidth = 8;
-
-		var line1Base = 160;
-		var line2Base = 280;
-		var line3Base = 390;
-
-		var default_font = default_font_weight + ' ' + default_font_size + ' ' + default_font_family;
-		var default_font_small = default_font_weight + ' ' + default_font_size_small + ' ' + default_font_family;
-		var default_font_smallest = default_font_weight_smallest + ' ' + default_font_size_smallest + ' ' + default_font_family;
+		var default_font_line1 = default_font_weight_line1 + ' ' + default_font_size_line1 + ' ' + default_font_family;
+		var default_font_line2 = default_font_weight_line2 + ' ' + default_font_size_line2 + ' ' + default_font_family;
+		var default_font_line3 = default_font_weight_line3 + ' ' + default_font_size_line3 + ' ' + default_font_family;
 
 		ctx.fillStyle = requestedFillStyle(ctx, w, h);
-		ctx.fillRect(0,0,w,h);
+		ctx.fillRect(0, 0, w, h);
 
-		ctx.fillStyle = '#ffffff';
-
-		if ($fill1.checked || $fill2.checked) {
-			ctx.fillStyle = '#ffffff';
-		}
-
-		// measure lines
-
-		ctx.font = default_font;
+		ctx.font = default_font_line1;
 		var line1Measurement = ctx.measureText($line1.value).width;
 
-		ctx.font = default_font_small;
-		var lastMeasurement = ctx.measureText($line2.value).width;
+		ctx.font = default_font_line2;
+		var line2Measurement = ctx.measureText($line2.value).width;
 
-		var maxWidth = Math.max(line1Measurement, lastMeasurement);
+		ctx.font = default_font_line3;
+		var line3Measurement = ctx.measureText($line3.value).width;
 
-		// limit max width of lines to a percentage width of the canvas
-		maxWidth = Math.min(maxWidth, w * 0.36);
+		var maxWidth = Math.max(line1Measurement, line2Measurement, line3Measurement);
+		maxWidth = Math.min(maxWidth, w * 0.85);
 
-		ctx.font = default_font;
-		ctx.fillText($line1.value, w - maxWidth - rightMargin, line1Base, maxWidth);
+		ctx.textAlign = "start";
 
-		ctx.font = default_font_small;
-		ctx.fillText($line2.value, w - maxWidth - rightMargin, line2Base, maxWidth);
+		ctx.fillStyle = default_font_color_line1;
+		ctx.font = default_font_line1;
+		ctx.fillText($line1.value, w - maxWidth - side_margin, base_line1, maxWidth);
 
-		ctx.font = default_font_smallest;
-		ctx.fillText($line3.value, w - maxWidth - rightMargin, line3Base, maxWidth);
+		ctx.fillStyle = default_font_color_line2;
+		ctx.font = default_font_line2;
+		ctx.fillText($line2.value, w - maxWidth - side_margin, base_line2, maxWidth);
 
+		ctx.fillStyle = default_font_color_line3;
+		ctx.font = default_font_line3;
+		ctx.fillText($line3.value, w - maxWidth - side_margin, base_line3, maxWidth);
+
+		// vertical line next to text
 		ctx.fillStyle = vertical_line_color;
-		ctx.fillRect(w - maxWidth - 80, topMargin, verticalLineWidth, line2Base - 30);
+		ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line2 + vertical_line_extra_height);
 
 		if ($line3.value) {
-			ctx.fillRect(w - maxWidth - 80, topMargin, verticalLineWidth, line3Base - 30);
+			ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
 		}
 	}
 
