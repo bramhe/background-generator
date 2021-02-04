@@ -137,7 +137,7 @@
 		<p>
 			After you are happy with your new virtual background use the &ldquo;Download Image&rdquo; button to save it to your local machine.
 			Set it as your virtual background in your Zoom settings.
-			(<a href="howto.html">How do I set a virtual background in Zoom?</a>)
+			(<a href="https://support.zoom.us/hc/en-us/articles/210707503-Virtual-Background">How do I set a virtual background in Zoom?</a>)
 		</p>
 	</div>
 	<a id="downloadlink" download="zoombackground.jpg" href="">Download Background</a>
