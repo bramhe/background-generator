@@ -1,15 +1,16 @@
 <!doctype html>
 <html lang="en-us">
 <head>
-<title>NC State Zoom Virtual Background Generator</title>
+<title>NC State Virtual Background Generator</title>
 <meta charset="utf-8" />
+<link rel="icon" type="image/x-icon" href="https://www.ncsu.edu/favicon.ico" />
+<link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
+<link rel="stylesheet" href="styles.css" />
 <script src="canvas2image.js"></script>
-<link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts/include.css">
-<script src="https://cdn.ncsu.edu/brand-assets/utility-bar/ub.php?googleCustomSearchCode=&placeholder=&maxWidth=1100&color=gray&showBrick=1"></script>
-<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.ncsu.edu/brand-assets/utility-bar/ub-php.js?color=black&amp;showBrick=1"></script>
 <script>
 
-	var default_font_family = 'UniversRoman,Arial';		// text font family
+	var default_font_family = 'Univers,Arial';		// text font family
 
 	var default_font_weight_line1 = '700';				// line 1 font weight
 	var default_font_weight_line2 = '700';				// line 2 font weight
@@ -30,11 +31,11 @@
 	var side_margin = 50;								// text margin from top
 	var top_margin = 50;								// text margin from side
 
-	var default_gradient_color_main = '#427E93';		// gradient main color
-	var default_gradient_color_dark = '#000000';		// gradient darker color
+	var default_gradient_color_main = '#CC0000';		// gradient main color
+	var default_gradient_color_dark = '#990000';		// gradient darker color
 
 	var vertical_line_width = 8;						// width of vertical bar
-	var vertical_line_color = '#CC0000';				// color of vertical bar
+	var vertical_line_color = '#000000';				// color of vertical bar
 	var vertical_line_margin = 100;						// vertical bar margin away from text
 	var vertical_line_extra_height = -30;				// vertical bar height added to last line base
 
@@ -45,13 +46,13 @@
 
 
 <div class="doc">
-	<h1>NC State Zoom Virtual Background Generator</h1>
+	<h1>NC State Virtual Background Generator</h1>
 
 	<canvas width="1920" height="1080" id="cvshd"></canvas>
 	<canvas width="1600" height="1200" id="cvs"></canvas>
 
 	<p>
-		This tool creates a virtual background to use during class Zoom sessions.
+		This tool creates a virtual background to use for web conferencing tools.
 		When using this background, situate yourself in such a way to minimize overlap with your name.
 	</p>
 	<p>
@@ -67,21 +68,21 @@
 					<label for="line1">Line 1:</label>
 				</th>
 				<td>
-					<input type="text" id="line1" placeholder="e.g. firstname">
+					<input type="text" id="line1" placeholder="e.g. firstname" />
 				</td>
 				<td id="download" rowspan="5">
 					<button id="createimage">Download Image</button>
 
 					<div id="ratioOptions">
-						<input type="radio" id="optionHD" name="imageStyle" value="HD" checked="checked">
+						<input type="radio" id="optionHD" name="imageStyle" value="HD" checked="checked" />
 						<label for="optionHD">HD</label>
-						<input type="radio" id="option43" name="imageStyle" value="43">
+						<input type="radio" id="option43" name="imageStyle" value="43" />
 						<label for="option43">4:3</label>
 						<div id="ratioTooltip">
-							Leave the ratio as HD by default.  ONLY choose 4:3 if you are
-							using the lower ratio video in Zoom and your name is being cut off.
+							Leave the ratio as HD by default. ONLY choose 4:3 if you are
+							using the lower ratio video in Zoom and your text is being cut off.
 						</div>
-				   </div>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -89,7 +90,7 @@
 					<label for="line2">Line 2:</label>
 				</th>
 				<td>
-					<input type="text" id="line2" placeholder="e.g. lastname">
+					<input type="text" id="line2" placeholder="e.g. lastname" />
 				</td>
 			</tr>
 			<tr>
@@ -97,7 +98,7 @@
 					<label for="line3">Line 3:</label>
 				</th>
 				<td>
-					<input type="text" id="line3" placeholder="e.g. pronouns">
+					<input type="text" id="line3" placeholder="e.g. pronouns" />
 				</td>
 			</tr>
 			<tr>
@@ -174,24 +175,10 @@
 		$line2 = document.getElementById('line2');
 		$line3 = document.getElementById('line3');
 
-		var queryString = window.location.search;
-		var urlParams = new URLSearchParams(queryString);
-		var firstVal = urlParams.get('first');
-		var lastVal = urlParams.get('last');
-
-		if (firstVal) {
-			$line1.value = firstVal;
-		};
-
-		if (lastVal) {
-			$line2.value = lastVal;
-		};
-
 		bind();
 
-		if (firstVal && lastVal) {
-			updateImage();
-		}
+		updateImage();
+
 	}
 
 
@@ -208,7 +195,7 @@
 		$imgs.innerHTML = '';
 		var imgElement = Canvas2Image.convertToImage(canvashd, w, h, type);
 		imgElement.alt = 'generated background';
-		$imgs.appendChild(imgElement)
+		$imgs.appendChild(imgElement);
 
 	}
 
@@ -225,7 +212,7 @@
 		$imgs.innerHTML = '';
 		var imgElement = Canvas2Image.convertToImage(canvas, w, h, type);
 		imgElement.alt = 'generated background';
-		$imgs.appendChild(imgElement)
+		$imgs.appendChild(imgElement);
 
 	}
 
@@ -301,7 +288,7 @@
 		} else if ($fill.value == 'circle') {
 
 			var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
-			radialGrd.addColorStop(0.75, default_gradient_color_dark);
+			radialGrd.addColorStop(0.70, default_gradient_color_dark);
 			radialGrd.addColorStop(0.75, default_gradient_color_main);
 			radialGrd.addColorStop(1, default_gradient_color_dark);
 

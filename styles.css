@@ -14,33 +14,31 @@ canvas {
 }
 
 button, .button {
-	background-color: #141e3c;
-	border-width: 1px;
-	border-color: #141e3c;
+	background-color: #cc0000;
+	border: none;
+	cursor: pointer;
 	font-weight: 700;
-	font-family: UniversRoman, Arial, sans-serif;
+	font-family: Univers, Arial, sans-serif;
 	line-height: 1;
 	text-decoration: none;
 	padding: .9375rem 1.5625rem;
-	border-radius: 9999px;
 	font-size: 1rem;
 	text-align: left;
 	color: #fff;
-	transition: all .3s ease;
 	width: auto;
 	white-space: nowrap;
 	display: inline-block;
 }
 
 button.default:hover, button:hover, .button:hover {
-	background: #00274C;
+	background: #990000;
 	color: #fff;
 }
 
 input[type="text"] {
 	background: #fff;
 	border: 1px solid #999;
-	font-family: UniversRoman, Arial, sans-serif;
+	font-family: Univers, Arial, sans-serif;
 	font-size: 18px;
 	padding: 2px 3px;
 	vertical-align: baseline;
@@ -49,18 +47,12 @@ input[type="text"] {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	border: 1px solid #c2c2c2;
-	box-shadow: 1px 1px 4px #ebebeb;
-	-moz-box-shadow: 1px 1px 4px #ebebeb;
-	-webkit-box-shadow: 1px 1px 4px #ebebeb;
-	border-radius: 3px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
 }
 
 body {
-	color: #00274C;
+	color: #000000;
 	font-size: 18px;
-	font-family: UniversRoman, Arial, sans-serif;
+	font-family: Univers, Arial, sans-serif;
 	margin: 20px;
 }
 
@@ -126,7 +118,6 @@ td#download {
 	z-index: 1000;
 	width:200px;
 	font-size:14px;
-	border-radius:12px;
 }
 
 /*===========================================================================*/
@@ -137,16 +128,14 @@ td#download {
 .select-css {
 	display: block;
 	font-size: 18px;
-	font-family: UniversRoman, Arial, sans-serif;
-	color: #444;
+	font-family: Univers, Arial, sans-serif;
+	color: #333;
 	padding: 3px;
 	min-width: 400px;
 
 	box-sizing: border-box;
 	margin: 0;
 	border: 1px solid #aaa;
-	box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
-	border-radius: .3em;
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	appearance: none;
@@ -171,17 +160,13 @@ td#download {
 
 /* Hover style */
 .select-css:hover {
-  border-color: #888;
+  border-color: #999;
 }
 
 /* Focus style */
 .select-css:focus {
-  border-color: #222;
-  /* It'd be nice to use -webkit-focus-ring-color here but it doesn't work on box-shadow */
-  box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
-  box-shadow: 0 0 0 3px -moz-mac-focusring;
-  color: #222;
-  outline: none;
+  border-color: #333;
+  color: #333;
 }
 
 /* Set options to normal weight */
