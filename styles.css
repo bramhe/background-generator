@@ -79,10 +79,21 @@ h1 {
 	width:600px;
 }
 
-table {
-	width: 100%;
-	border: 1px solid #eee;
+#settings {
 	padding: 0;
+	border: 0;
+	max-width: 650px;
+}
+
+legend {
+	padding: 5px 0;
+	margin: 5px 0;
+	display: block;
+}
+
+table#settings_table {
+	border: 1px solid #eee;
+	border-spacing: 10px;
 }
 
 th {
@@ -95,6 +106,11 @@ th.label {
 
 td {
 	height: 35px;
+}
+
+td#download {
+	vertical-align: top;
+	text-align: center;
 }
 
 #ratioOptions:hover #ratioTooltip {
