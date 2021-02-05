@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en-us">
 <head>
 <title>NC State Zoom Virtual Background Generator</title>
 <meta charset="utf-8" />
@@ -59,80 +59,79 @@
 		If you want your name to read correctly to you, uncheck &ldquo;Mirror my video&rdquo; in your Zoom video settings.
 	</p>
 
-	<div>
-		<p>
-			<table>
-				<tr>
-					<th class="label" scope="row">
-						<label for="line1">Line 1:</label>
-					</th>
-					<td>
-						<input type="text" id="line1" placeholder="e.g. firstname">
-					</td>
-					<td rowspan="2" align="center" >
-						<button id="createimage">Download Image</button>
+	<fieldset id="settings">
+		<legend>Parameters for the virtual background image:</legend>
+		<table id="settings_table">
+			<tr>
+				<th class="label" scope="row">
+					<label for="line1">Line 1:</label>
+				</th>
+				<td>
+					<input type="text" id="line1" placeholder="e.g. firstname">
+				</td>
+				<td id="download" rowspan="5">
+					<button id="createimage">Download Image</button>
 
-						<div id="ratioOptions">
-							<input type="radio" id="optionHD" name="imageStyle" value="HD" checked="checked">
-							<label for="optionHD">HD</label>
-							<input type="radio" id="option43" name="imageStyle" value="43">
-							<label for="option43">4:3</label>
-							<div id="ratioTooltip">
-								Leave the ratio as HD by default.  ONLY choose 4:3 if you are
-								using the lower ratio video in Zoom and your name is being cut off.
-							</div>
-					   </div>
-					</td>
-				</tr>
-				<tr>
-					<th class="label" scope="row">
-						<label for="line2">Line 2:</label>
-					</th>
-					<td>
-						<input type="text" id="line2" placeholder="e.g. lastname">
-					</td>
-				</tr>
-				<tr>
-					<th class="label" scope="row">
-						<label for="line3">Line 3:</label>
-					</th>
-					<td>
-						<input type="text" id="line3" placeholder="e.g. pronouns">
-					</td>
-				</tr>
-				<tr>
-					<th class="label" scope="row">
-						<label for="align">Align:</label>
-					</th>
-					<td>
-						<select id="align" class="select-css">
-							<option selected="selected" value="right_left">Text on Right, Left Aligned</option>
-							<option value="right_right">Text on Right, Right Aligned</option>
-							<option value="center">Center</option>
-							<option value="left_left">Text on Left, Left Aligned</option>
-							<option value="left_right">Text on Left, Right Aligned</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th class="label" scope="row">
-						<label for="fill">Background:</label>
-					</th>
-					<td>
-						<select id="fill" class="select-css">
-							<option selected="selected" value="radial">Radial Gradient</option>
-							<option value="vertical1">Vertical Gradient Light</option>
-							<option value="vertical2">Vertical Gradient Dark</option>
-							<option value="circle">Gradient with Circle</option>
-							<option value="solid">Solid Color</option>
-						</select>
-					</td>
-				</tr>
-			</table>
-		</p>
-	</div>
+					<div id="ratioOptions">
+						<input type="radio" id="optionHD" name="imageStyle" value="HD" checked="checked">
+						<label for="optionHD">HD</label>
+						<input type="radio" id="option43" name="imageStyle" value="43">
+						<label for="option43">4:3</label>
+						<div id="ratioTooltip">
+							Leave the ratio as HD by default.  ONLY choose 4:3 if you are
+							using the lower ratio video in Zoom and your name is being cut off.
+						</div>
+				   </div>
+				</td>
+			</tr>
+			<tr>
+				<th class="label" scope="row">
+					<label for="line2">Line 2:</label>
+				</th>
+				<td>
+					<input type="text" id="line2" placeholder="e.g. lastname">
+				</td>
+			</tr>
+			<tr>
+				<th class="label" scope="row">
+					<label for="line3">Line 3:</label>
+				</th>
+				<td>
+					<input type="text" id="line3" placeholder="e.g. pronouns">
+				</td>
+			</tr>
+			<tr>
+				<th class="label" scope="row">
+					<label for="align">Align:</label>
+				</th>
+				<td>
+					<select id="align" class="select-css">
+						<option selected="selected" value="right_left">Text on Right, Left Aligned</option>
+						<option value="right_right">Text on Right, Right Aligned</option>
+						<option value="center">Center</option>
+						<option value="left_left">Text on Left, Left Aligned</option>
+						<option value="left_right">Text on Left, Right Aligned</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th class="label" scope="row">
+					<label for="fill">Background:</label>
+				</th>
+				<td>
+					<select id="fill" class="select-css">
+						<option selected="selected" value="radial">Radial Gradient</option>
+						<option value="vertical1">Vertical Gradient Light</option>
+						<option value="vertical2">Vertical Gradient Dark</option>
+						<option value="circle">Gradient with Circle</option>
+						<option value="solid">Solid Color</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
 
-	<div id="imgs" width="800" height="600">
+	<div id="imgs">
 
 	</div>
 	<div id="explanation" style="display:none">
@@ -142,7 +141,7 @@
 			(<a href="https://support.zoom.us/hc/en-us/articles/210707503-Virtual-Background">How do I set a virtual background in Zoom?</a>)
 		</p>
 	</div>
-	<a id="downloadlink" download="zoombackground.jpg" href="">Download Background</a>
+	<a id="downloadlink" download="zoombackground.jpg" href="#">Download Background</a>
 </div>
 
 
@@ -207,7 +206,9 @@
 			h = 1080;
 
 		$imgs.innerHTML = '';
-		$imgs.appendChild(Canvas2Image.convertToImage(canvashd, w, h, type))
+		var imgElement = Canvas2Image.convertToImage(canvashd, w, h, type);
+		imgElement.alt = 'generated background';
+		$imgs.appendChild(imgElement)
 
 	}
 
@@ -222,7 +223,9 @@
 			w = 1600,
 			h = 1200;
 		$imgs.innerHTML = '';
-		$imgs.appendChild(Canvas2Image.convertToImage(canvas, w, h, type))
+		var imgElement = Canvas2Image.convertToImage(canvas, w, h, type);
+		imgElement.alt = 'generated background';
+		$imgs.appendChild(imgElement)
 
 	}
 
