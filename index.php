@@ -63,14 +63,14 @@
 		<p>
 			<table>
 				<tr>
-					<th class="label">
+					<th class="label" scope="row">
 						<label for="line1">Line 1:</label>
 					</th>
 					<td>
-						<input type="text" id="line1" placeholder="e.g. firstname" tabindex="1">
+						<input type="text" id="line1" placeholder="e.g. firstname">
 					</td>
 					<td rowspan="2" align="center" >
-						<button id="createimage" tabindex="6">Download Image</button>
+						<button id="createimage">Download Image</button>
 
 						<div id="ratioOptions">
 							<input type="radio" id="optionHD" name="imageStyle" value="HD" checked="checked">
@@ -85,27 +85,27 @@
 					</td>
 				</tr>
 				<tr>
-					<th class="label">
+					<th class="label" scope="row">
 						<label for="line2">Line 2:</label>
 					</th>
 					<td>
-						<input type="text" id="line2" placeholder="e.g. lastname" tabindex="2">
+						<input type="text" id="line2" placeholder="e.g. lastname">
 					</td>
 				</tr>
 				<tr>
-					<th class="label">
+					<th class="label" scope="row">
 						<label for="line3">Line 3:</label>
 					</th>
 					<td>
-						<input type="text" id="line3" placeholder="e.g. pronouns" tabindex="3">
+						<input type="text" id="line3" placeholder="e.g. pronouns">
 					</td>
 				</tr>
 				<tr>
-					<th class="label">
+					<th class="label" scope="row">
 						<label for="align">Align:</label>
 					</th>
 					<td>
-						<select id="align" class="select-css" tabindex="4">
+						<select id="align" class="select-css">
 							<option selected="selected" value="right_left">Text on Right, Left Aligned</option>
 							<option value="right_right">Text on Right, Right Aligned</option>
 							<option value="center">Center</option>
@@ -115,11 +115,11 @@
 					</td>
 				</tr>
 				<tr>
-					<th class="label">
+					<th class="label" scope="row">
 						<label for="fill">Background:</label>
 					</th>
 					<td>
-						<select id="fill" class="select-css" tabindex="5">
+						<select id="fill" class="select-css">
 							<option selected="selected" value="radial">Radial Gradient</option>
 							<option value="vertical1">Vertical Gradient Light</option>
 							<option value="vertical2">Vertical Gradient Dark</option>
@@ -137,7 +137,7 @@
 	</div>
 	<div id="explanation" style="display:none">
 		<p>
-			After you are happy with your new virtual background use the &ldquo;Download Image&rdquo; button to save it to your local machine.
+			After you are happy with your new virtual background, use the &ldquo;Download Image&rdquo; button to save it to your local machine.
 			Set it as your virtual background in your Zoom settings.
 			(<a href="https://support.zoom.us/hc/en-us/articles/210707503-Virtual-Background">How do I set a virtual background in Zoom?</a>)
 		</p>
@@ -367,8 +367,8 @@
 			if ($line3.value) {
 				ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
 			}
-		}
-		else if ($align.value == 'right_right') {
+
+		} else if ($align.value == 'right_right') {
 
 			ctx.textAlign = "end";
 
@@ -391,8 +391,8 @@
 			if ($line3.value) {
 				ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
 			}
-		}
-		else if ($align.value == 'center') {
+
+		} else if ($align.value == 'center') {
 
 			ctx.textAlign = "center";
 
@@ -410,8 +410,7 @@
 
 			// no vertical line with centered text
 
-		}
-		else if ($align.value == 'left_right') {
+		} else if ($align.value == 'left_right') {
 
 			ctx.textAlign = "end";
 
@@ -434,8 +433,8 @@
 			if ($line3.value) {
 				ctx.fillRect(maxWidth + vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
 			}
-		}
-		else if ($align.value == 'left_left') {
+
+		} else if ($align.value == 'left_left') {
 
 			ctx.textAlign = "start";
 
