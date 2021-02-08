@@ -20,13 +20,13 @@
 	var default_font_size_line2 = '100px';				// line 2 font size
 	var default_font_size_line3 = '80px';				// line 3 font size
 
+	var height_line1 = 160;								// line 1 height
+	var height_line2 = 120;								// line 2 height
+	var height_line3 = 110;								// line 3 height
+
 	var default_font_color_line1 = '#FFFFFF';			// line 1 text color
 	var default_font_color_line2 = '#FFFFFF';			// line 2 text color
 	var default_font_color_line3 = '#FFFFFF';			// line 3 text color
-
-	var base_line1 = 160;								// line 1 baseline
-	var base_line2 = 280;								// line 2 baseline
-	var base_line3 = 390;								// line 3 baseline
 
 	var side_margin = 50;								// text margin from top
 	var top_margin = 50;								// text margin from side
@@ -291,6 +291,26 @@
 		var default_font_line2 = default_font_weight_line2 + ' ' + default_font_size_line2 + ' ' + default_font_family;
 		var default_font_line3 = default_font_weight_line3 + ' ' + default_font_size_line3 + ' ' + default_font_family;
 
+		var base_line1 = height_line1;
+		var base_line2 = height_line2;
+		var base_line3 = height_line3;
+		var vertical_line_height = vertical_line_extra_height;
+
+		if ($line1.value !== '') {
+			base_line2 += height_line1;
+			base_line3 += height_line1;
+			vertical_line_height += height_line1;
+		}
+
+		if ($line2.value !== '') {
+			base_line3 += height_line2;
+			vertical_line_height += height_line2;
+		}
+
+		if ($line3.value !== '') {
+			vertical_line_height += height_line3;
+		}
+
 		fillBackground(ctx, w, h);
 
 		ctx.font = default_font_line1;
@@ -322,11 +342,9 @@
 			ctx.fillText($line3.value, w - maxWidth - side_margin, base_line3, maxWidth);
 
 			// vertical line next to text
-			ctx.fillStyle = vertical_line_color;
-			ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line2 + vertical_line_extra_height);
-
-			if ($line3.value) {
-				ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
+			if (vertical_line_height > 0) {
+				ctx.fillStyle = vertical_line_color;
+				ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, vertical_line_height);
 			}
 
 		} else if ($align.value === 'right_right') {
@@ -346,11 +364,9 @@
 			ctx.fillText($line3.value, w - side_margin, base_line3, maxWidth);
 
 			// vertical line next to text
-			ctx.fillStyle = vertical_line_color;
-			ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line2 + vertical_line_extra_height);
-
-			if ($line3.value) {
-				ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
+			if (vertical_line_height > 0) {
+				ctx.fillStyle = vertical_line_color;
+				ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, vertical_line_height);
 			}
 
 		} else if ($align.value === 'center') {
@@ -388,11 +404,9 @@
 			ctx.fillText($line3.value, maxWidth + side_margin, base_line3, maxWidth);
 
 			// vertical line next to text
-			ctx.fillStyle = vertical_line_color;
-			ctx.fillRect(maxWidth + vertical_line_margin, top_margin, vertical_line_width, base_line2 + vertical_line_extra_height);
-
-			if ($line3.value) {
-				ctx.fillRect(maxWidth + vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
+			if (vertical_line_height > 0) {
+				ctx.fillStyle = vertical_line_color;
+				ctx.fillRect(maxWidth + vertical_line_margin, top_margin, vertical_line_width, vertical_line_height);
 			}
 
 		} else if ($align.value === 'left_left') {
@@ -412,11 +426,9 @@
 			ctx.fillText($line3.value, side_margin, base_line3, maxWidth);
 
 			// vertical line next to text
-			ctx.fillStyle = vertical_line_color;
-			ctx.fillRect(maxWidth + vertical_line_margin, top_margin, vertical_line_width, base_line2 + vertical_line_extra_height);
-
-			if ($line3.value) {
-				ctx.fillRect(maxWidth + vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
+			if (vertical_line_height > 0) {
+				ctx.fillStyle = vertical_line_color;
+				ctx.fillRect(maxWidth + vertical_line_margin, top_margin, vertical_line_width, vertical_line_height);
 			}
 		}
 	}
