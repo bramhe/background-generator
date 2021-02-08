@@ -22,12 +22,13 @@ button, .button {
 	line-height: 1;
 	text-decoration: none;
 	padding: .9375rem 1.5625rem;
+	margin: 10px auto 0 auto;
 	font-size: 1rem;
 	text-align: left;
 	color: #fff;
 	width: auto;
 	white-space: nowrap;
-	display: inline-block;
+	display:block;
 }
 
 button.default:hover, button:hover, .button:hover {
@@ -42,8 +43,8 @@ input[type="text"] {
 	font-size: 18px;
 	padding: 2px 3px;
 	vertical-align: baseline;
-	height: 40px;
-	min-width: 400px;
+	height: 35px;
+	min-width: 330px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	border: 1px solid #c2c2c2;
@@ -56,11 +57,19 @@ body {
 	margin: 20px;
 }
 
+p {
+	margin: 0;
+	font-size: 16px;
+	padding: 4px 0;
+}
+
 h1 {
 	font-size: 28px;
 	font-weight: 700;
-	line-height: 42px;
+	line-height: 33px;
 	text-align: center;
+	margin: 10px 0 10px 0;
+	padding: 20px 0 0 0;
 }
 
 #imgs {
@@ -72,53 +81,44 @@ h1 {
 }
 
 #settings {
-	padding: 0;
-	border: 0;
-	max-width: 650px;
+	padding: 10px;
+	border: none;
+	max-width: 600px;
+	margin: 15px auto 0 auto;
+}
+
+#settings > div {
+	padding-bottom: 8px;
+	display: block;
+	margin: 0 auto;
+	max-width: 500px;
 }
 
 legend {
-	padding: 5px 0;
-	margin: 5px 0;
-	display: block;
+	padding: 0;
+	margin: 0;
 }
 
-table#settings_table {
-	border: 1px solid #eee;
-	border-spacing: 10px;
-}
-
-th {
-	height: 35px;
-}
-
-th.label {
+label {
 	text-align: right;
+	min-width: 140px;
+	display: inline-block;
+	font-weight: bold;
 }
 
-td {
-	height: 35px;
+label.line1 {
+	font-size: 125%;
+	font-weight: 700;
+}
+label.line2 {
+	font-size: 110%;
+	font-weight: 700;
+}
+label.line3 {
+	font-size: 95%;
+	font-weight: 400;
 }
 
-td#download {
-	vertical-align: top;
-	text-align: center;
-}
-
-#ratioOptions:hover #ratioTooltip {
-	display: block;
-}
-
-#ratioTooltip {
-	display: none;
-	background: #C8C8C8;
-	margin-left: 20px;
-	padding: 10px;
-	position: absolute;
-	z-index: 1000;
-	width:200px;
-	font-size:14px;
-}
 
 /*===========================================================================*/
 /* Styled <select> elements from https://github.com/filamentgroup/select-css */
@@ -126,12 +126,13 @@ td#download {
 
 /* class applies to select element itself, not a wrapper element */
 .select-css {
-	display: block;
+	display: inline-block;
 	font-size: 18px;
+	height: 35px;
 	font-family: Univers, Arial, sans-serif;
 	color: #333;
 	padding: 3px;
-	min-width: 400px;
+	min-width: 330px;
 
 	box-sizing: border-box;
 	margin: 0;
