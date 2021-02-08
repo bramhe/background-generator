@@ -59,99 +59,73 @@
 		Note: If your name appears backwards to you, don't worry! It displays correctly to others.
 		If you want your name to read correctly to you, uncheck &ldquo;Mirror my video&rdquo; in your Zoom video settings.
 	</p>
+	<p>
+		After you are happy with your new virtual background, use the &ldquo;Download Image&rdquo; button to save it to your local machine.
+		Set it as your virtual background in your Zoom settings.
+		(<a href="https://support.zoom.us/hc/en-us/articles/210707503-Virtual-Background">How do I set a virtual background in Zoom?</a>)
+	</p>
+	<p>
+		Leave the ratio as HD by default. Choose 4:3 ONLY if you are
+		using the lower ratio video in Zoom and your text is being cut off.
+	</p>
 
 	<fieldset id="settings">
 		<legend>Parameters for the virtual background image:</legend>
-		<table id="settings_table">
-			<tr>
-				<th class="label" scope="row">
-					<label for="line1">Line 1:</label>
-				</th>
-				<td>
-					<input type="text" id="line1" placeholder="e.g. firstname" />
-				</td>
-				<td id="download" rowspan="5">
-					<button id="createimage">Download Image</button>
-
-					<div id="ratioOptions">
-						<input type="radio" id="optionHD" name="imageStyle" value="HD" checked="checked" />
-						<label for="optionHD">HD</label>
-						<input type="radio" id="option43" name="imageStyle" value="43" />
-						<label for="option43">4:3</label>
-						<div id="ratioTooltip">
-							Leave the ratio as HD by default. ONLY choose 4:3 if you are
-							using the lower ratio video in Zoom and your text is being cut off.
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th class="label" scope="row">
-					<label for="line2">Line 2:</label>
-				</th>
-				<td>
-					<input type="text" id="line2" placeholder="e.g. lastname" />
-				</td>
-			</tr>
-			<tr>
-				<th class="label" scope="row">
-					<label for="line3">Line 3:</label>
-				</th>
-				<td>
-					<input type="text" id="line3" placeholder="e.g. pronouns" />
-				</td>
-			</tr>
-			<tr>
-				<th class="label" scope="row">
-					<label for="align">Align:</label>
-				</th>
-				<td>
-					<select id="align" class="select-css">
-						<option selected="selected" value="right_left">Text on Right, Left Aligned</option>
-						<option value="right_right">Text on Right, Right Aligned</option>
-						<option value="center">Center</option>
-						<option value="left_left">Text on Left, Left Aligned</option>
-						<option value="left_right">Text on Left, Right Aligned</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<th class="label" scope="row">
-					<label for="fill">Background:</label>
-				</th>
-				<td>
-					<select id="fill" class="select-css">
-						<option selected="selected" value="radial">Radial Gradient</option>
-						<option value="vertical1">Vertical Gradient Light</option>
-						<option value="vertical2">Vertical Gradient Dark</option>
-						<option value="circle">Gradient with Circle</option>
-						<option value="solid">Solid Color</option>
-					</select>
-				</td>
-			</tr>
-		</table>
+		<div>
+			<label for="line1" class="line1">Big Text:</label>
+			<input type="text" id="line1" placeholder="e.g. first name">
+		</div>
+		<div>
+			<label for="line2" class="line2">Medium Text:</label>
+			<input type="text" id="line2" placeholder="e.g. last name">
+		</div>
+		<div>
+			<label for="line3" class="line3">Small Text:</label>
+			<input type="text" id="line3" placeholder="e.g. pronouns">
+		</div>
+		<div>
+			<label for="align">Align:</label>
+			<select id="align" class="select-css">
+				<option selected="selected" value="right_left">Text on Right, Left Aligned</option>
+				<option value="right_right">Text on Right, Right Aligned</option>
+				<option value="center">Centered</option>
+				<option value="left_left">Text on Left, Left Aligned</option>
+				<option value="left_right">Text on Left, Right Aligned</option>
+			</select>
+		</div>
+		<div>
+			<label for="fill">Background:</label>
+			<select id="fill" class="select-css">
+				<option selected="selected" value="radial">Radial Gradient</option>
+				<option value="vertical1">Vertical Gradient Light</option>
+				<option value="vertical2">Vertical Gradient Dark</option>
+				<option value="circle">Gradient with Circle</option>
+				<option value="solid">Solid Color</option>
+			</select>
+		</div>
+		<div>
+			<label for="ratio">Aspect Ratio:</label>
+			<select id="ratio" class="select-css">
+				<option selected="selected" value="16x9">16:9 / HD</option>
+				<option value="4x3">4:3</option>
+			</select>
+		</div>
 	</fieldset>
 
-	<div id="imgs">
+	<div id="imgs"></div>
 
-	</div>
-	<div id="explanation" style="display:none">
-		<p>
-			After you are happy with your new virtual background, use the &ldquo;Download Image&rdquo; button to save it to your local machine.
-			Set it as your virtual background in your Zoom settings.
-			(<a href="https://support.zoom.us/hc/en-us/articles/210707503-Virtual-Background">How do I set a virtual background in Zoom?</a>)
-		</p>
-	</div>
-	<a id="downloadlink" download="zoombackground.jpg" href="#">Download Background</a>
+	<button id="createimage">Download Image</button>
+
+	<a id="downloadlink" download="zoombackground.png" href="#">Download Background</a>
 </div>
 
 
 <script>
 	var canvas, canvashd, ctxorig, ctxhd,
-		$createhd, $createorig, $createimage, $optionHD, $option43,
+		$createhd, $createorig, $createimage,
 		$imgs,
 		$line1, $line2, $line3,
-		$fill, $align;
+		$fill, $align, $ratio;
 
 
 
@@ -164,10 +138,9 @@
 		ctxhd = canvashd.getContext('2d');
 
 		$createimage = document.getElementById('createimage');
-		$optionHD = document.getElementById('optionHD');
-		$option43 = document.getElementById('option43');
 		$align = document.getElementById('align');
 		$fill = document.getElementById('fill');
+		$ratio = document.getElementById('ratio');
 
 		$imgs = document.getElementById('imgs');
 
@@ -186,9 +159,9 @@
 
 		draw(ctxhd, 1920, 1080);
 
-		document.getElementById('explanation').style = "display:block";
+		document.getElementById('createimage').style = "display:block";
 
-		var type = 'jpg',
+		var type = 'png',
 			w = 1920,
 			h = 1080;
 
@@ -204,9 +177,9 @@
 
 		draw(ctxorig, 1600, 1200);
 
-		document.getElementById('explanation').style = "display:block";
+		document.getElementById('createimage').style = "display:block";
 
-		var type = 'jpg',
+		var type = 'png',
 			w = 1600,
 			h = 1200;
 		$imgs.innerHTML = '';
@@ -218,7 +191,7 @@
 
 
 	function updateImage() {
-		if ($optionHD.checked) {
+		if ($ratio.value === '16x9') {
 			drawHD();
 		} else {
 			draw43();
@@ -231,10 +204,10 @@
 		$createimage.onclick = function (e) {
 
 			updateImage();
-			if ($optionHD.checked) {
-				Canvas2Image.saveAsImage(canvashd, 1920, 1080, 'jpg');
+			if ($ratio.value === '16x9') {
+				Canvas2Image.saveAsImage(canvashd, 1920, 1080, 'png');
 			} else {
-				Canvas2Image.saveAsImage(canvas, 1600, 1200, 'jpg');
+				Canvas2Image.saveAsImage(canvas, 1600, 1200, 'png');
 			}
 
 		}
@@ -249,10 +222,8 @@
 			updateImage();
 		}
 
-		$option43.oninput = function(e) {
-			updateImage();
-		}
-		$optionHD.oninput = function(e) {
+		$ratio.oninput = function(e) {
+			$imgs.innerHTML = '';
 			updateImage();
 		}
 		$fill.oninput = function(e) {
@@ -267,7 +238,7 @@
 
 	function fillBackground(ctx, w, h) {
 
-		if ($fill.value == 'radial') {
+		if ($fill.value === 'radial') {
 
 			var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
 			radialGrd.addColorStop(0, default_gradient_color_main);
@@ -276,7 +247,7 @@
 			ctx.fillStyle = radialGrd;
 			ctx.fillRect(0, 0, w, h);
 
-		} else if ($fill.value == 'vertical1') {
+		} else if ($fill.value === 'vertical1') {
 
 			var grd = ctx.createLinearGradient(0, 0, 0, h);
 			grd.addColorStop(0, default_gradient_color_dark);
@@ -285,7 +256,7 @@
 			ctx.fillStyle = grd;
 			ctx.fillRect(0, 0, w, h);
 
-		} else if ($fill.value == 'circle') {
+		} else if ($fill.value === 'circle') {
 
 			var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
 			radialGrd.addColorStop(0.70, default_gradient_color_dark);
@@ -295,7 +266,7 @@
 			ctx.fillStyle = radialGrd;
 			ctx.fillRect(0, 0, w, h);
 
-		} else if ($fill.value == 'vertical2') {
+		} else if ($fill.value === 'vertical2') {
 
 			var grd = ctx.createLinearGradient(0, 0, 0, h);
 			grd.addColorStop(0, default_gradient_color_dark);
@@ -304,7 +275,7 @@
 			ctx.fillStyle = grd;
 			ctx.fillRect(0, 0, w, h);
 
-		} else if ($fill.value == 'solid') {
+		} else if ($fill.value === 'solid') {
 
 			// solid color
 			ctx.fillStyle = default_gradient_color_main;
@@ -334,7 +305,7 @@
 		var maxWidth = Math.max(line1Measurement, line2Measurement, line3Measurement);
 		maxWidth = Math.min(maxWidth, w * 0.85);
 
-		if ($align.value == 'right_left') {
+		if ($align.value === 'right_left') {
 
 			ctx.textAlign = "start";
 
@@ -358,7 +329,7 @@
 				ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
 			}
 
-		} else if ($align.value == 'right_right') {
+		} else if ($align.value === 'right_right') {
 
 			ctx.textAlign = "end";
 
@@ -382,7 +353,7 @@
 				ctx.fillRect(w - maxWidth - vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
 			}
 
-		} else if ($align.value == 'center') {
+		} else if ($align.value === 'center') {
 
 			ctx.textAlign = "center";
 
@@ -400,7 +371,7 @@
 
 			// no vertical line with centered text
 
-		} else if ($align.value == 'left_right') {
+		} else if ($align.value === 'left_right') {
 
 			ctx.textAlign = "end";
 
@@ -424,7 +395,7 @@
 				ctx.fillRect(maxWidth + vertical_line_margin, top_margin, vertical_line_width, base_line3 + vertical_line_extra_height);
 			}
 
-		} else if ($align.value == 'left_left') {
+		} else if ($align.value === 'left_left') {
 
 			ctx.textAlign = "start";
 
