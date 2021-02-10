@@ -2,6 +2,7 @@
 <html lang="en-us">
 <head>
 <title>NC State Virtual Background Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8" />
 <link rel="icon" type="image/x-icon" href="https://www.ncsu.edu/favicon.ico" />
 <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
@@ -81,7 +82,7 @@
 		</div>
 		<div>
 			<label for="line3" class="line3">Small Text:</label>
-			<input type="text" id="line3" placeholder="e.g. pronouns">
+			<input type="text" id="line3" placeholder="e.g. pronouns" autocapitalize="off">
 		</div>
 		<div>
 			<label for="align">Align:</label>
