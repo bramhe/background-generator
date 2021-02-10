@@ -324,7 +324,7 @@
 		var line3Measurement = ctx.measureText($line3.value).width;
 
 		var maxWidth = Math.max(line1Measurement, line2Measurement, line3Measurement);
-		maxWidth = Math.min(maxWidth, w * 0.85);
+		maxWidth = Math.min(maxWidth, w - (side_margin * 3));
 
 		if ($align.value === 'right_left') {
 
@@ -374,17 +374,21 @@
 
 			ctx.textAlign = "center";
 
+			// we have some extra space since we are not drawing the vertical line, so recalculate maxWidth
+			maxWidth = Math.max(line1Measurement, line2Measurement, line3Measurement);
+			maxWidth = Math.min(maxWidth, w - (side_margin * 2));
+
 			ctx.fillStyle = default_font_color_line1;
 			ctx.font = default_font_line1;
-			ctx.fillText($line1.value, w / 2, base_line1);
+			ctx.fillText($line1.value, w / 2, base_line1, maxWidth);
 
 			ctx.fillStyle = default_font_color_line2;
 			ctx.font = default_font_line2;
-			ctx.fillText($line2.value, w / 2, base_line2);
+			ctx.fillText($line2.value, w / 2, base_line2, maxWidth);
 
 			ctx.fillStyle = default_font_color_line3;
 			ctx.font = default_font_line3;
-			ctx.fillText($line3.value, w / 2, base_line3);
+			ctx.fillText($line3.value, w / 2, base_line3, maxWidth);
 
 			// no vertical line with centered text
 
