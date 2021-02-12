@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang="en-us">
 <head>
-<title>NC State Virtual Background Generator</title>
+<title>NC State Virtual Backgrounds</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8" />
 <link rel="icon" type="image/x-icon" href="https://www.ncsu.edu/favicon.ico" />
 <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="styles.css?20210211" />
 <script src="canvas2image.js"></script>
 <script src="https://cdn.ncsu.edu/brand-assets/utility-bar/ub-php.js?color=black&amp;showBrick=1"></script>
 <script>
@@ -47,77 +48,180 @@
 
 
 <div class="doc">
-	<h1>NC State Virtual Background Generator</h1>
+	<h1>NC State Virtual Backgrounds</h1>
 
 	<canvas width="1920" height="1080" id="cvshd"></canvas>
 	<canvas width="1600" height="1200" id="cvs"></canvas>
 
-	<p>
-		This tool creates a virtual background to use for web conferencing tools.
-		When using this background, situate yourself in such a way to minimize overlap with your name.
-	</p>
-	<p>
-		Note: If your name appears backwards to you, don't worry! It displays correctly to others.
-		If you want your name to read correctly to you, uncheck &ldquo;Mirror my video&rdquo; in your Zoom video settings.
-	</p>
-	<p>
-		After you are happy with your new virtual background, use the &ldquo;Download Image&rdquo; button to save it to your local machine.
-		Set it as your virtual background in your Zoom settings.
-		(<a href="https://support.zoom.us/hc/en-us/articles/210707503-Virtual-Background">How do I set a virtual background in Zoom?</a>)
-	</p>
-	<p>
-		Leave the ratio as HD by default. Choose 4:3 ONLY if you are
-		using the lower ratio video in Zoom and your text is being cut off.
-	</p>
+	<ul class="nav nav-tabs" id="tab_list" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" id="home-tab" data-toggle="tab" href="#generator" role="tab" aria-controls="home" aria-selected="true">Background Generator</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="zoom-tab" data-toggle="tab" href="#zoom" role="tab" aria-controls="zoom" aria-selected="false">Zoom</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="panopto-tab" data-toggle="tab" href="#panopto" role="tab" aria-controls="panopto" aria-selected="false">Panopto</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="meet-tab" data-toggle="tab" href="#meet" role="tab" aria-controls="meet" aria-selected="false">Google Meet</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="standard-tab" data-toggle="tab" href="#standard" role="tab" aria-controls="standard" aria-selected="false">Standard Backgrounds</a>
+		</li>
+	</ul>
 
-	<fieldset id="settings">
-		<legend>Parameters for the virtual background image:</legend>
-		<div>
-			<label for="line1" class="line1">Big Text:</label>
-			<input type="text" id="line1" placeholder="e.g. first name">
-		</div>
-		<div>
-			<label for="line2" class="line2">Medium Text:</label>
-			<input type="text" id="line2" placeholder="e.g. last name">
-		</div>
-		<div>
-			<label for="line3" class="line3">Small Text:</label>
-			<input type="text" id="line3" placeholder="e.g. pronouns" autocapitalize="off">
-		</div>
-		<div>
-			<label for="align">Align:</label>
-			<select id="align" class="select-css">
-				<option selected="selected" value="right_left">Text on Right, Left Aligned</option>
-				<option value="right_right">Text on Right, Right Aligned</option>
-				<option value="center">Centered</option>
-				<option value="left_left">Text on Left, Left Aligned</option>
-				<option value="left_right">Text on Left, Right Aligned</option>
-			</select>
-		</div>
-		<div>
-			<label for="fill">Background:</label>
-			<select id="fill" class="select-css">
-				<option selected="selected" value="radial">Radial Gradient</option>
-				<option value="vertical1">Vertical Gradient Light</option>
-				<option value="vertical2">Vertical Gradient Dark</option>
-				<option value="circle">Gradient with Circle</option>
-				<option value="solid">Solid Color</option>
-			</select>
-		</div>
-		<div>
-			<label for="ratio">Aspect Ratio:</label>
-			<select id="ratio" class="select-css">
-				<option selected="selected" value="16x9">16:9 / HD</option>
-				<option value="4x3">4:3</option>
-			</select>
-		</div>
-	</fieldset>
+	<div class="tab-content" id="myTabContent">
+		<div class="tab-pane fade show active" id="generator" role="tabpanel" aria-labelledby="home-tab">
+			<p>
+				This tool creates a virtual background image for use with web conferencing tools.
+				Enter text (e.g. your name and pronouns) and choose other parameters to customize the image.
+			</p>
+			<p>
+				When you are happy with your new virtual background, use the &ldquo;Download Image&rdquo; button to save it to your local machine.
+			</p>
+			<p>
+				For information on how to use the downloaded image, visit the tab for
+				<a href="#" aria-controls="zoom" onclick="activateTab('zoom');return false;">Zoom</a>,
+				<a href="#" aria-controls="panopto" onclick="activateTab('panopto');return false;">Panopto</a>,
+				or
+				<a href="#" aria-controls="meet" onclick="activateTab('meet');return false;">Google Meet</a> on this page.
+			</p>
 
-	<div id="imgs"></div>
+			<fieldset id="settings">
+				<legend>Parameters for the virtual background image:</legend>
+				<div>
+					<label for="line1" class="line1">Big Text:</label>
+					<input type="text" id="line1" placeholder="e.g. first name">
+				</div>
+				<div>
+					<label for="line2" class="line2">Medium Text:</label>
+					<input type="text" id="line2" placeholder="e.g. last name">
+				</div>
+				<div>
+					<label for="line3" class="line3">Small Text:</label>
+					<input type="text" id="line3" placeholder="e.g. pronouns" autocapitalize="off">
+				</div>
+				<div>
+					<label for="align">Align:</label>
+					<select id="align" class="select-css">
+						<option selected="selected" value="right_left">Text on Right, Left Aligned</option>
+						<option value="right_right">Text on Right, Right Aligned</option>
+						<option value="center">Centered</option>
+						<option value="left_left">Text on Left, Left Aligned</option>
+						<option value="left_right">Text on Left, Right Aligned</option>
+					</select>
+				</div>
+				<div>
+					<label for="fill">Background:</label>
+					<select id="fill" class="select-css">
+						<option selected="selected" value="radial">Radial Gradient</option>
+						<option value="vertical1">Vertical Gradient Light</option>
+						<option value="vertical2">Vertical Gradient Dark</option>
+						<option value="circle">Gradient with Circle</option>
+						<option value="solid">Solid Color</option>
+					</select>
+				</div>
+				<div>
+					<label for="ratio">Aspect Ratio:</label>
+					<select id="ratio" class="select-css">
+						<option selected="selected" value="16x9">16:9 / HD</option>
+						<option value="4x3">4:3</option>
+					</select>
+				</div>
+			</fieldset>
 
-	<button id="createimage">Download Image</button>
+			<div id="imgs"></div>
 
-	<a id="downloadlink" download="zoombackground.png" href="#">Download Background</a>
+			<button id="createimage">Download Image</button>
+
+			<a id="downloadlink" download="zoombackground.png" href="#">Download Background</a>
+
+		</div>
+		<div class="tab-pane fade" id="zoom" role="tabpanel" aria-labelledby="profile-tab">
+			<p>
+				Use the <a href="#" aria-controls="generator" onclick="activateTab('generator');return false;">Background Generator</a>
+				to generate a custom virtual background for use with Zoom.
+			</p>
+			<p>
+				Or, use the additional general-purpose NC State themed backgrounds
+				that already appear in your Zoom video
+				settings.  (As shown on the
+				<a href="#" aria-controls="standard" onclick="activateTab('standard');return false;">Standard Backgrounds tab</a>.)
+			</p>
+			<p>
+				After you download an image, set the image as your virtual background in your Zoom settings.
+			</p>
+			<p>
+				<a class="instructions_link" href="https://support.zoom.us/hc/en-us/articles/210707503-Virtual-Background">How do I set a virtual background in Zoom?</a>
+			</p>
+			<p>
+				If your name appears backwards to you, don't worry! It displays correctly to others.
+				If you want your name to read correctly to you, uncheck &ldquo;Mirror my video&rdquo; in your Zoom video settings.
+			</p>
+			<p>
+				Leave the ratio as HD by default. Choose 4:3 ONLY if you are
+				using the lower ratio video in Zoom and your text is being cut off.
+			</p>
+		</div>
+		<div class="tab-pane fade" id="panopto" role="tabpanel" aria-labelledby="contact-tab">
+			<p>
+				Use the <a href="#" aria-controls="generator" onclick="activateTab('generator');return false;">Background Generator</a>
+				to generate a custom virtual background for use with Panopto.
+			</p>
+			<p>
+				Or, download additional general-purpose NC State themed backgrounds
+				from the <a href="#" aria-controls="standard" onclick="activateTab('standard');return false;">Standard Backgrounds tab</a>.
+			</p>
+			<p>
+				After you download an image, set the image as your virtual background in your Panopto settings.
+			</p>
+			<p>
+				<a class="instructions_link" href="https://support.panopto.com/s/article/Learn-About-Capture-Settings">How do I set a virtual background in Panopto?</a>
+			</p>
+		</div>
+		<div class="tab-pane fade" id="meet" role="tabpanel" aria-labelledby="contact-tab">
+			<p>
+				Use the <a href="#" aria-controls="generator" onclick="activateTab('generator');return false;">Background Generator</a>
+				to generate a custom virtual background for use with Google Meet.
+			</p>
+			<p>
+				Or, download additional general-purpose NC State themed backgrounds
+				from the <a href="#" aria-controls="standard" onclick="activateTab('standard');return false;">Standard Backgrounds tab</a>.
+			</p>
+			<p>
+				After you download an image, set the image as your virtual background in your Google Meet settings.
+			</p>
+			<p>
+				<a class="instructions_link" href="https://support.google.com/meet/answer/10058482?co=GENIE.Platform%3DDesktop&hl=en">How do I set a virtual background in Google Meet?</a>
+			</p>
+		</div>
+		<div class="tab-pane fade" id="standard" role="tabpanel" aria-labelledby="contact-tab">
+			<p>
+				These general-purpose NC State themed backgrounds already appear in your
+				Zoom video settings, so there is no need to download them for use with Zoom.
+			</p>
+			<p>
+				For Panopto or Google Meet, download these
+				images for use as additional virtual backgrounds.
+			</p>
+			<p>
+				For information on how to use the downloaded image, visit the tab for
+				<a href="#" aria-controls="zoom" onclick="activateTab('zoom');return false;">Zoom</a>,
+				<a href="#" aria-controls="panopto" onclick="activateTab('panopto');return false;">Panopto</a>,
+				or
+				<a href="#" aria-controls="meet" onclick="activateTab('meet');return false;">Google Meet</a> on this page.
+			</p>
+			<div id="standard-links">
+				<a href="img/sample.png" download="nc_state_background1.png"><img class="thumbnail" src="img/sample.png" />
+				<br/>Download Standard Background 1</a>
+				<a href="img/sample.png" download="nc_state_background2.png"><img class="thumbnail" src="img/sample.png" />
+				<br/>Download Standard Background 2</a>
+				<a href="img/sample.png" download="nc_state_background3.png"><img class="thumbnail" src="img/sample.png" />
+				<br/>Download Standard Background 3</a>
+			</div>
+		</div>
+	</div>
 </div>
 
 
@@ -197,6 +301,10 @@
 		} else {
 			draw43();
 		}
+	}
+
+	function activateTab(tab_id) {
+		$('a[href="#' + tab_id + '"]').click();
 	}
 
 
@@ -441,6 +549,9 @@
 	onload = init;
 
 </script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
 

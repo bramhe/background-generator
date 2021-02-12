@@ -4,6 +4,44 @@
 	max-width: 800px;
 }
 
+.tab-content a {
+	color: #444;
+	text-decoration: underline;
+}
+.tab-content a:hover {
+	color: #000;
+}
+
+.tab-pane {
+	border: solid 1px #CCC;
+	border-top: 0;
+	padding: 10px 20px 15px 20px;
+}
+
+.nav-link {
+	font-family: Univers, Arial, sans-serif;
+	color: #676e75;
+}
+
+#standard-links {
+	text-align: center;
+}
+
+#standard-links a {
+	display: block;
+	padding: 10px;
+}
+
+.thumbnail {
+	width: 240px;
+	height: 135px;
+	padding-right:10px;
+}
+
+.instructions_link {
+	font-weight: bold;
+}
+
 canvas {
 	display: block;
 	border: 2px solid #888;
@@ -97,7 +135,8 @@ h1 {
 	max-width: 500px;
 }
 
-legend {
+#settings > legend {
+	font-size: 18px;
 	padding: 0;
 	margin: 0;
 }
@@ -187,4 +226,3 @@ label.line3 {
 .select-css:disabled:hover, .select-css[aria-disabled=true] {
 	border-color: #aaa;
 }
-
