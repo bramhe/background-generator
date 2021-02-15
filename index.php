@@ -119,7 +119,10 @@
 						<option value="vertical1">Vertical Gradient Light</option>
 						<option value="vertical2">Vertical Gradient Dark</option>
 						<option value="circle">Gradient with Circle</option>
-						<option value="solid">Solid Color</option>
+						<option value="solid_light">Solid Color Light</option>
+						<option value="solid_dark">Solid Color Dark</option>
+						<option value="image_wolf">Image &ndash; Wolf Logo</option>
+						<option value="image_hunt">Image &ndash; Hunt Library</option>
 					</select>
 				</div>
 				<div>
@@ -136,6 +139,7 @@
 			<button id="createimage">Download Image</button>
 
 			<a id="downloadlink" download="zoombackground.png" href="#">Download Background</a>
+			<img style="display:none" id="bgimg" src="#" alt="" />
 
 		</div>
 		<div class="tab-pane fade" id="zoom" role="tabpanel" aria-labelledby="profile-tab">
@@ -232,7 +236,7 @@
 		$line1, $line2, $line3,
 		$fill, $align, $ratio;
 
-
+	var img_type = 'png';
 
 	function init () {
 
@@ -253,6 +257,9 @@
 		$line2 = document.getElementById('line2');
 		$line3 = document.getElementById('line3');
 
+		$bgimg = document.getElementById('bgimg');
+
+
 		bind();
 
 		updateImage();
@@ -266,12 +273,11 @@
 
 		document.getElementById('createimage').style = "display:block";
 
-		var type = 'png',
-			w = 1920,
+		var w = 1920,
 			h = 1080;
 
 		$imgs.innerHTML = '';
-		var imgElement = Canvas2Image.convertToImage(canvashd, w, h, type);
+		var imgElement = Canvas2Image.convertToImage(canvashd, w, h, img_type);
 		imgElement.alt = 'generated background';
 		$imgs.appendChild(imgElement);
 
@@ -284,11 +290,10 @@
 
 		document.getElementById('createimage').style = "display:block";
 
-		var type = 'png',
-			w = 1600,
+		var w = 1600,
 			h = 1200;
 		$imgs.innerHTML = '';
-		var imgElement = Canvas2Image.convertToImage(canvas, w, h, type);
+		var imgElement = Canvas2Image.convertToImage(canvas, w, h, img_type);
 		imgElement.alt = 'generated background';
 		$imgs.appendChild(imgElement);
 
@@ -314,11 +319,15 @@
 
 			updateImage();
 			if ($ratio.value === '16x9') {
-				Canvas2Image.saveAsImage(canvashd, 1920, 1080, 'png');
+				Canvas2Image.saveAsImage(canvashd, 1920, 1080, img_type);
 			} else {
-				Canvas2Image.saveAsImage(canvas, 1600, 1200, 'png');
+				Canvas2Image.saveAsImage(canvas, 1600, 1200, img_type);
 			}
 
+		}
+
+		$bgimg.onload = function() {
+			updateImage();
 		}
 
 		$line1.oninput = function(e) {
@@ -335,13 +344,68 @@
 			$imgs.innerHTML = '';
 			updateImage();
 		}
+
 		$fill.oninput = function(e) {
-			updateImage();
+			if ($fill.value == 'image_wolf') {
+
+				img_type = 'png';
+				$('#downloadlink').attr('download', 'zoombackground.png');
+				$bgimg.src = 'img/NCState Zoom BG- Concepts R2-01 nologo.png';
+
+				// updateImage() will be called by the onload handler after image is loaded
+
+			} else if ($fill.value == 'image_hunt') {
+
+				img_type = 'jpg';
+				$('#downloadlink').attr('download', 'zoombackground.jpg');
+				$bgimg.src = 'img/_MAH4314hunt_apr_ext-X2.jpg';
+
+				// updateImage() will be called by the onload handler after image is loaded
+
+			} else {
+				img_type = 'png';
+				$('#downloadlink').attr('download', 'zoombackground.png');
+				updateImage();
+			}
 		}
+
 		$align.oninput = function(e) {
 			updateImage();
 		}
+	}
 
+
+	function drawBgImageIntoCanvas(ctx) {
+
+		var realWidth = $bgimg.naturalWidth;
+		var realHeight = $bgimg.naturalHeight;
+
+		if ($ratio.value == '16x9') {
+			canvasWidth = 1920;
+			canvasHeight = 1080;
+		} else {
+			canvasWidth = 1600;
+			canvasHeight = 1200;
+		}
+
+		var scaleW, scaleH, scale;
+
+		scaleW = canvasWidth / realWidth;
+		scaleH = canvasHeight / realHeight;
+
+		if (scaleW < scaleH) {
+			scale = scaleH;
+		} else {
+			scale = scaleW;
+		}
+
+		newWidth = Math.ceil(realWidth * scale);
+		newHeight = Math.ceil(realHeight * scale)
+
+		originW = (canvasWidth / 2) - (newWidth / 2);
+		originH = (canvasHeight / 2) - (newHeight / 2);
+
+		ctx.drawImage($bgimg, originW, originH, newWidth, newHeight);
 	}
 
 
@@ -384,13 +448,23 @@
 			ctx.fillStyle = grd;
 			ctx.fillRect(0, 0, w, h);
 
-		} else if ($fill.value === 'solid') {
+		} else if ($fill.value === 'solid_light') {
 
 			// solid color
 			ctx.fillStyle = default_gradient_color_main;
 			ctx.fillRect(0, 0, w, h);
-		}
 
+		} else if ($fill.value === 'solid_dark') {
+
+			// solid color
+			ctx.fillStyle = default_gradient_color_dark;
+			ctx.fillRect(0, 0, w, h);
+
+		} else if ($fill.value.startsWith('image_')) {
+
+			drawBgImageIntoCanvas(ctx);
+
+		}
 	}
 
 
