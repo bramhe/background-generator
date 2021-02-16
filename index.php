@@ -217,12 +217,16 @@
 				<a href="#" aria-controls="meet" onclick="activateTab('meet');return false;">Google Meet</a> on this page.
 			</p>
 			<div id="standard-links">
-				<a href="img/sample.png" download="nc_state_background1.png"><img class="thumbnail" src="img/sample.png" />
+				<a href="img/sample.png" download="NCStateWall_01.png"><img class="thumbnail" src="img/NCStateWall_01.png" />
 				<br/>Download Standard Background 1</a>
-				<a href="img/sample.png" download="nc_state_background2.png"><img class="thumbnail" src="img/sample.png" />
+				<a href="img/sample.png" download="ZoomBelltower__02.png"><img class="thumbnail" src="img/ZoomBelltower__02.png" />
 				<br/>Download Standard Background 2</a>
-				<a href="img/sample.png" download="nc_state_background3.png"><img class="thumbnail" src="img/sample.png" />
+				<a href="img/sample.png" download="ZoomCourt__01.png"><img class="thumbnail" src="img/ZoomCourt__01.png" />
 				<br/>Download Standard Background 3</a>
+				<a href="img/sample.png" download="NCState Zoom BG- Concepts R2-01.png"><img class="thumbnail" src="img/NCState Zoom BG- Concepts R2-01.png" />
+				<br/>Download Standard Background 4</a>
+				<a href="img/sample.png" download="NCState Zoom BG- Concepts R2-02.png"><img class="thumbnail" src="img/NCState Zoom BG- Concepts R2-02.png" />
+				<br/>Download Standard Background 5</a>
 			</div>
 		</div>
 	</div>
