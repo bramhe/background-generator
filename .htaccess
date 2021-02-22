@@ -47,8 +47,12 @@ require shib-user tpgrimes@ncsu.edu
 require shib-user wjhicks@ncsu.edu
 require shib-user ychappe@ncsu.edu
 require shib-user yzchen@ncsu.edu
-require shib-user jmwillif@ncsu.edu
-require shib-user mpcuales@ncsu.edu
 require shib-user bmvienri@ncsu.edu
-require shib-user sjoneal@ncsu.edu
+require shib-user cjcolson@ncsu.edu
+require shib-user jmwillif@ncsu.edu
 require shib-user kbharris@ncsu.edu
+require shib-user mpcuales@ncsu.edu
+require shib-user sjoneal@ncsu.edu
+require shib-user mgalleg@ncsu.edu
+require shib-user ltfandel@ncsu.edu
+require shib-user jjgira@ncsu.edu
