@@ -83,7 +83,7 @@
 			<p>
 				For information on how to use the downloaded image, visit the tab for
 				<a href="#" aria-controls="zoom" onclick="activateTab('zoom');return false;">Zoom</a>,
-				<a href="#" aria-controls="panopto" onclick="activateTab('panopto');return false;">Panopto</a>,
+				<a href="#" aria-controls="panopto" onclick="activateTab('panopto');return false;">Panopto</a>
 				or
 				<a href="#" aria-controls="meet" onclick="activateTab('meet');return false;">Google Meet</a> on this page.
 			</p>
@@ -115,12 +115,15 @@
 				<div>
 					<label for="fill">Background:</label>
 					<select id="fill" class="select-css">
-						<option selected="selected" value="radial">Radial Gradient</option>
+						<option selected="selected" value="radial1">Radial Gradient</option>
+						<option value="radial2">Radial Gradient Reversed</option>
 						<option value="vertical1">Vertical Gradient Light</option>
 						<option value="vertical2">Vertical Gradient Dark</option>
-						<option value="circle">Gradient with Circle</option>
-						<option value="solid_light">Solid Color Light</option>
-						<option value="solid_dark">Solid Color Dark</option>
+						<option value="solid_CC0000">Solid Color &ndash; Wolfpack Red</option>
+						<option value="solid_990000">Solid Color &ndash; Reynolds Red</option>
+						<option value="solid_008473">Solid Color &ndash; Carmichael Aqua</option>
+						<option value="solid_427E93">Solid Color &ndash; Innovation Blue</option>
+						<option value="solid_4156A1">Solid Color &ndash; Bio-indigo</option>
 						<option value="image_wolf">Image &ndash; Wolf Logo</option>
 						<option value="image_hunt">Image &ndash; Hunt Library</option>
 					</select>
@@ -212,21 +215,19 @@
 			<p>
 				For information on how to use the downloaded image, visit the tab for
 				<a href="#" aria-controls="zoom" onclick="activateTab('zoom');return false;">Zoom</a>,
-				<a href="#" aria-controls="panopto" onclick="activateTab('panopto');return false;">Panopto</a>,
+				<a href="#" aria-controls="panopto" onclick="activateTab('panopto');return false;">Panopto</a>
 				or
 				<a href="#" aria-controls="meet" onclick="activateTab('meet');return false;">Google Meet</a> on this page.
 			</p>
 			<div id="standard-links">
-				<a href="img/NCStateWall_01.png" download="NCStateWall_01.png"><img class="thumbnail" src="img/NCStateWall_01.png" />
+				<a href="img/NCStateWall_01.png" download="hunt_ncstate_wall.png"><img class="thumbnail" src="img/NCStateWall_01.png" />
 				<br/>Download Standard Background 1</a>
-				<a href="img/ZoomBelltower__02.png" download="ZoomBelltower__02.png"><img class="thumbnail" src="img/ZoomBelltower__02.png" />
+				<a href="img/ZoomBelltower__02.png" download="belltower_twilight.png"><img class="thumbnail" src="img/ZoomBelltower__02.png" />
 				<br/>Download Standard Background 2</a>
-				<a href="img/ZoomCourt__01.png" download="ZoomCourt__01.png"><img class="thumbnail" src="img/ZoomCourt__01.png" />
+				<a href="img/ZoomCourt__01.png" download="court_of_carolinas.png"><img class="thumbnail" src="img/ZoomCourt__01.png" />
 				<br/>Download Standard Background 3</a>
-				<a href="img/NCState Zoom BG- Concepts R2-01.png" download="NCState Zoom BG- Concepts R2-01.png"><img class="thumbnail" src="img/NCState Zoom BG- Concepts R2-01.png" />
+				<a href="img/NCState Zoom BG- Concepts R2-01.png" download="wolf_silhouette.png"><img class="thumbnail" src="img/NCState Zoom BG- Concepts R2-01.png" />
 				<br/>Download Standard Background 4</a>
-				<a href="img/NCState Zoom BG- Concepts R2-02.png" download="NCState Zoom BG- Concepts R2-02.png"><img class="thumbnail" src="img/NCState Zoom BG- Concepts R2-02.png" />
-				<br/>Download Standard Background 5</a>
 			</div>
 		</div>
 	</div>
@@ -415,11 +416,20 @@
 
 	function fillBackground(ctx, w, h) {
 
-		if ($fill.value === 'radial') {
+		if ($fill.value === 'radial1') {
 
 			var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
 			radialGrd.addColorStop(0, default_gradient_color_main);
 			radialGrd.addColorStop(1, default_gradient_color_dark);
+
+			ctx.fillStyle = radialGrd;
+			ctx.fillRect(0, 0, w, h);
+
+		} else if ($fill.value === 'radial2') {
+
+			var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
+			radialGrd.addColorStop(0, default_gradient_color_dark);
+			radialGrd.addColorStop(1, default_gradient_color_main);
 
 			ctx.fillStyle = radialGrd;
 			ctx.fillRect(0, 0, w, h);
@@ -452,16 +462,10 @@
 			ctx.fillStyle = grd;
 			ctx.fillRect(0, 0, w, h);
 
-		} else if ($fill.value === 'solid_light') {
+		} else if ($fill.value.startsWith('solid_')) {
 
 			// solid color
-			ctx.fillStyle = default_gradient_color_main;
-			ctx.fillRect(0, 0, w, h);
-
-		} else if ($fill.value === 'solid_dark') {
-
-			// solid color
-			ctx.fillStyle = default_gradient_color_dark;
+			ctx.fillStyle = '#' + $fill.value.replace('solid_', '');
 			ctx.fillRect(0, 0, w, h);
 
 		} else if ($fill.value.startsWith('image_')) {
