@@ -91,7 +91,7 @@
 			<fieldset id="settings">
 				<legend>Parameters for the virtual background image:</legend>
 				<div>
-					<label for="line1" class="line1">Big Text:</label>
+					<label for="line1" class="line1">Large Text:</label>
 					<input type="text" id="line1" placeholder="e.g. first name">
 				</div>
 				<div>
@@ -124,8 +124,10 @@
 						<option value="solid_008473">Solid Color &ndash; Carmichael Aqua</option>
 						<option value="solid_427E93">Solid Color &ndash; Innovation Blue</option>
 						<option value="solid_4156A1">Solid Color &ndash; Bio-indigo</option>
-						<option value="image_wolf">Image &ndash; Wolf Logo</option>
+						<option value="image_wolf">Image &ndash; Wolf Head</option>
 						<option value="image_hunt">Image &ndash; Hunt Library</option>
+						<option value="image_hunt_night">Image &ndash; Hunt Library at Night</option>
+						<option value="image_belltower">Image &ndash; Belltower</option>
 					</select>
 				</div>
 				<div>
@@ -224,7 +226,7 @@
 				<br/>Download Standard Background 1</a>
 				<a href="img/ZoomBelltower__02.png" download="belltower_twilight.png"><img class="thumbnail" src="img/ZoomBelltower__02.png" />
 				<br/>Download Standard Background 2</a>
-				<a href="img/ZoomCourt__01.png" download="court_of_carolinas.png"><img class="thumbnail" src="img/ZoomCourt__01.png" />
+				<a href="img/ZoomStateStack_1920x1080.png" download="state_stack.png"><img class="thumbnail" src="img/ZoomStateStack_1920x1080.png" />
 				<br/>Download Standard Background 3</a>
 				<a href="img/NCState Zoom BG- Concepts R2-01.png" download="wolf_silhouette.png"><img class="thumbnail" src="img/NCState Zoom BG- Concepts R2-01.png" />
 				<br/>Download Standard Background 4</a>
@@ -355,7 +357,7 @@
 
 				img_type = 'png';
 				$('#downloadlink').attr('download', 'zoombackground.png');
-				$bgimg.src = 'img/NCState Zoom BG- Concepts R2-01 nologo.png';
+				$bgimg.src = 'img/Wolf_Head_1920x1280.png';
 
 				// updateImage() will be called by the onload handler after image is loaded
 
@@ -364,6 +366,22 @@
 				img_type = 'jpg';
 				$('#downloadlink').attr('download', 'zoombackground.jpg');
 				$bgimg.src = 'img/_MAH4314hunt_apr_ext-X2.jpg';
+
+				// updateImage() will be called by the onload handler after image is loaded
+
+			} else if ($fill.value == 'image_belltower') {
+
+				img_type = 'jpg';
+				$('#downloadlink').attr('download', 'zoombackground.jpg');
+				$bgimg.src = 'img/001_BellTowerBluePurple_1920x1280.png';
+
+				// updateImage() will be called by the onload handler after image is loaded
+
+			} else if ($fill.value == 'image_hunt_night') {
+
+				img_type = 'jpg';
+				$('#downloadlink').attr('download', 'zoombackground.jpg');
+				$bgimg.src = 'img/002_HuntAtNight_1920x1080.png';
 
 				// updateImage() will be called by the onload handler after image is loaded
 
