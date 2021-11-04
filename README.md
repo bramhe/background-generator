@@ -38,3 +38,4 @@ Based on code from University of Michigan School for Environment and Sustainabil
 
 * **Note:** for photographic images, it is recommended to use `img_type = 'jpg'`.  For geometric-type images, use `image_type = 'png'`.
 
+* Update extension of main **index.php** file (e.g. to .html) as needed to match the DirectoryIndex. The background generator runs in the browser and does not require PHP.
